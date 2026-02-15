@@ -1,0 +1,21 @@
+# Godot
+.godot/
+.import/
+
+# Exports
+/export/
+/build/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Temp
+*.tmp
