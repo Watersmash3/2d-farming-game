@@ -261,5 +261,4 @@ shape = SubResource("RectangleShape2D_c3xxp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1672371478]
 sprite_frames = SubResource("SpriteFrames_eac1a")
-animation = &"idle"
-frame_progress = 0.9945239
+animation = &"walk_angle"

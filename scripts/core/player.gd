@@ -30,6 +30,11 @@ func _update_animation(input_dir: Vector2) -> void:
 	var want_flip_h := false
 	var anim := ""
 
+	var up: bool = dir.y < 0
+	var down: bool = dir.y > 0
+	var left: bool = dir.x < 0
+	var right: bool = dir.x > 0
+
 	if is_diag:
 		if moving:
 			anim = "walk_angle"
@@ -37,18 +42,23 @@ func _update_animation(input_dir: Vector2) -> void:
 			anim = "idle_angle"
 		want_flip_h = dir.x < 0
 	else:
-		if dir.y < 0:
+		if up:
 			if moving:
 				anim = "walk_up"
 			else:
 				anim = "idle_back"
-		else:
+		elif down:
 			if moving:
 				anim = "walk_down"
 			else:
 				anim = "idle"
-
-		want_flip_h = false
+		elif right:
+			if moving:
+				anim = "walk_angle"
+		elif !left:
+			want_flip_h = true
+		else:
+			want_flip_h = false
 
 	sprite.flip_h = want_flip_h
 
