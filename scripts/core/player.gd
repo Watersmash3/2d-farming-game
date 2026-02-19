@@ -55,7 +55,7 @@ func _update_animation(input_dir: Vector2) -> void:
 		elif right:
 			if moving:
 				anim = "walk_angle"
-		elif !left:
+		elif left:
 			want_flip_h = true
 		else:
 			want_flip_h = false
