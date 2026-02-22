@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var SPEED := 180.0
+@export var speed := 180.0
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var last_dir: Vector2 = Vector2.DOWN
@@ -9,12 +9,14 @@ var is_swinging: bool = false
 
 func _physics_process(_delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	is_swinging = Input.is_action_pressed("interact")
+	
+	if Input.is_action_just_pressed("interact"):
+		is_swinging = true
 
 	if is_swinging:
 		velocity = Vector2.ZERO
 	else:
-		velocity = input_dir * SPEED
+		velocity = input_dir * speed
 		
 	move_and_slide()
 
@@ -25,7 +27,7 @@ func _physics_process(_delta: float) -> void:
 
 func _update_animation(input_dir: Vector2) -> void:
 	var moving := input_dir.length() > 0.1
-	var dir
+	var dir: Vector2
 	if moving:
 		dir = input_dir
 	else:
@@ -72,13 +74,15 @@ func _update_animation(input_dir: Vector2) -> void:
 				anim = "walk_angle"
 			else:
 				anim = "idle_angle"
-			
-		else:
-			want_flip_h = false
 
 	sprite.flip_h = want_flip_h
 
 	if sprite.animation != anim:
 		sprite.play(anim)
-	elif not moving:
-		pass
+
+func _ready() -> void:
+	sprite.animation_finished.connect(_on_animation_finished)
+
+func _on_animation_finished() -> void:
+	if sprite.animation == "hoe_swing":
+		is_swinging = false
