@@ -2,10 +2,31 @@
 
 [ext_resource type="Script" uid="uid://d1m8h4d2tdnxb" path="res://scripts/core/player.gd" id="1_4kuee"]
 [ext_resource type="Texture2D" uid="uid://c5snk4tgni00e" path="res://assets/sprites/player/Idle.png" id="2_524rm"]
+[ext_resource type="Texture2D" uid="uid://lkcyoujng1mq" path="res://assets/sprites/player/Hoe_Swing.png" id="2_tpg5x"]
 [ext_resource type="Texture2D" uid="uid://dbugv0w1r55un" path="res://assets/sprites/player/Walk.png" id="3_tpg5x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c3xxp"]
 size = Vector2(8, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_524rm"]
+atlas = ExtResource("2_tpg5x")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpg5x"]
+atlas = ExtResource("2_tpg5x")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3xxp"]
+atlas = ExtResource("2_tpg5x")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eac1a"]
+atlas = ExtResource("2_tpg5x")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijyjs"]
+atlas = ExtResource("2_tpg5x")
+region = Rect2(128, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_npwbq"]
 atlas = ExtResource("2_524rm")
@@ -129,6 +150,35 @@ region = Rect2(160, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eac1a"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_524rm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpg5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3xxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eac1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijyjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eac1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3xxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpg5x")
+}],
+"loop": true,
+"name": &"hoe_swing",
+"speed": 9.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_npwbq")
@@ -261,4 +311,6 @@ shape = SubResource("RectangleShape2D_c3xxp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1672371478]
 sprite_frames = SubResource("SpriteFrames_eac1a")
-animation = &"walk_angle"
+animation = &"hoe_swing"
+autoplay = "idle"
+frame_progress = 0.06500681

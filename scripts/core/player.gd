@@ -5,11 +5,17 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var last_dir: Vector2 = Vector2.DOWN
+var is_swinging: bool = false
 
 func _physics_process(_delta: float) -> void:
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	is_swinging = Input.is_action_pressed("ui_select")
 
-	velocity = input_dir * SPEED
+	if is_swinging:
+		velocity = Vector2.ZERO
+	else:
+		velocity = input_dir * SPEED
+		
 	move_and_slide()
 
 	if input_dir.length() > 0.1:
@@ -35,7 +41,10 @@ func _update_animation(input_dir: Vector2) -> void:
 	var left: bool = dir.x < 0
 	var right: bool = dir.x > 0
 
-	if is_diag:
+	if is_swinging:
+		anim = "hoe_swing"
+		want_flip_h = dir.x < 0
+	elif is_diag:
 		if moving:
 			anim = "walk_angle"
 		else:
@@ -55,8 +64,15 @@ func _update_animation(input_dir: Vector2) -> void:
 		elif right:
 			if moving:
 				anim = "walk_angle"
+			else: 
+				anim ="idle_angle"
 		elif left:
 			want_flip_h = true
+			if moving:
+				anim = "walk_angle"
+			else:
+				anim = "idle_angle"
+			
 		else:
 			want_flip_h = false
 
