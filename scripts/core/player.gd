@@ -8,8 +8,8 @@ var last_dir: Vector2 = Vector2.DOWN
 var is_swinging: bool = false
 
 func _physics_process(_delta: float) -> void:
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	is_swinging = Input.is_action_pressed("ui_select")
+	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	is_swinging = Input.is_action_pressed("interact")
 
 	if is_swinging:
 		velocity = Vector2.ZERO
