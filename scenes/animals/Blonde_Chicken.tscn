@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://cssntsarp3ed6"]
+
+[ext_resource type="Script" uid="uid://xebrdvdaq80q" path="res://scripts/core/animal.gd" id="1_kk2xr"]
+[ext_resource type="Texture2D" uid="uid://bifm3o06mafb5" path="res://assets/sprites/objects/Chicken Blonde  Green.png" id="1_o513l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0eyrr"]
+atlas = ExtResource("1_o513l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk2xr"]
+atlas = ExtResource("1_o513l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aneit"]
+atlas = ExtResource("1_o513l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8lxt"]
+atlas = ExtResource("1_o513l")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy4cb"]
+atlas = ExtResource("1_o513l")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0eyrr"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0eyrr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk2xr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aneit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8lxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy4cb")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=1757694156]
+script = ExtResource("1_kk2xr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1398813447]
+sprite_frames = SubResource("SpriteFrames_0eyrr")
+animation = &"walk_side"
+autoplay = "walk_side"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1721522061]

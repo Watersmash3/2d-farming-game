@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cvdd3oluoa7oi"]
+
+[ext_resource type="Texture2D" uid="uid://debjtdaj2ctxq" path="res://assets/sprites/objects/Chicken Red.png" id="1_5y6lq"]
+[ext_resource type="Script" uid="uid://xebrdvdaq80q" path="res://scripts/core/animal.gd" id="1_oxead"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxead"]
+atlas = ExtResource("1_5y6lq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14nx5"]
+atlas = ExtResource("1_5y6lq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1r45b"]
+atlas = ExtResource("1_5y6lq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ocba"]
+atlas = ExtResource("1_5y6lq")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg8q3"]
+atlas = ExtResource("1_5y6lq")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p1xj4"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxead")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14nx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1r45b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ocba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg8q3")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
+}]
+
+[node name="Red_Chicken" type="Node2D" unique_id=1100063822]
+script = ExtResource("1_oxead")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1404198788]
+sprite_frames = SubResource("SpriteFrames_p1xj4")
+autoplay = "walk_side"
