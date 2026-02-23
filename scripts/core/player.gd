@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 var last_dir: Vector2 = Vector2.DOWN
 var is_swinging: bool = false
+var facing_dir: Vector2 = Vector2.DOWN
 
 func _physics_process(_delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -38,10 +39,10 @@ func _update_animation(input_dir: Vector2) -> void:
 	var want_flip_h := false
 	var anim := ""
 
-	var up: bool = dir.y < 0
-	var down: bool = dir.y > 0
-	var left: bool = dir.x < 0
-	var right: bool = dir.x > 0
+	var up: bool = dir.y < -0.1
+	var down: bool = dir.y > 0.1
+	var left: bool = dir.x < 0.1
+	var right: bool = dir.x > 0.1
 
 	if is_swinging:
 		anim = "hoe_swing"
