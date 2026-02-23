@@ -87,3 +87,9 @@ func _ready() -> void:
 func _on_animation_finished() -> void:
 	if sprite.animation == "hoe_swing":
 		is_swinging = false
+
+func get_facing_cell_offset() -> Vector2i:
+	if abs(facing_dir.x) > abs(facing_dir.y):
+		return Vector2i(1, 0) if facing_dir.x > 0 else Vector2i(-1, 0)
+	else:
+		return Vector2i(0, 1) if facing_dir.y > 0 else Vector2i(0, -1)
