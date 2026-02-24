@@ -11,7 +11,7 @@ var facing_dir: Vector2 = Vector2.DOWN
 func _physics_process(_delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
-	if Input.is_action_just_pressed("interact"):
+	if Input.is_action_just_pressed("interact") and not is_swinging:
 		is_swinging = true
 
 	if is_swinging:
@@ -41,7 +41,7 @@ func _update_animation(input_dir: Vector2) -> void:
 
 	var up: bool = dir.y < -0.1
 	var down: bool = dir.y > 0.1
-	var left: bool = dir.x < 0.1
+	var left: bool = dir.x < -0.1
 	var right: bool = dir.x > 0.1
 
 	if is_swinging:
@@ -87,6 +87,9 @@ func _ready() -> void:
 func _on_animation_finished() -> void:
 	if sprite.animation == "hoe_swing":
 		is_swinging = false
+		# Force update to idle/walk animation
+		var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		_update_animation(input_dir)
 
 func get_facing_cell_offset() -> Vector2i:
 	if abs(facing_dir.x) > abs(facing_dir.y):

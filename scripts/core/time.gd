@@ -41,4 +41,3 @@ func advance_day() -> void:
 	var old_day := time_tick.get_time_unit("day")
 	time_tick.set_time_unit("hour", 0)
 	time_tick.set_time_unit("day", old_day + 1)
-1

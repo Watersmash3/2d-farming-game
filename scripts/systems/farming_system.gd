@@ -1,7 +1,7 @@
 extends Node
 class_name FarmingSystem
 
-# --- Assign in inspector (World.tscn) ---
+# --- Assign in inspector (World.tscn)
 @export var farm_tilemap_path: NodePath
 @export var crops_layer_path: NodePath
 
@@ -10,11 +10,11 @@ class_name FarmingSystem
 
 # Atlas coordinates for farm tiles
 @export var tile_source_id: int = 0
-const ATLAS_TILLED := Vector2i(0, 0)
-const ATLAS_WATERED := Vector2i(1, 0)
-const ATLAS_DIRT := Vector2i(2, 0)
+const ATLAS_TILLED := Vector2i(0, 0) # correlating to the base tiles grid
+const ATLAS_WATERED := Vector2i(1, 0) # correlating to the base tiles grid
+const ATLAS_DIRT := Vector2i(2, 0) # correlating to the base tiles grid
 
-# --- Crop visuals: stage textures ---
+# --- Crop visuals: stage textures
 @export var potato_stage_textures: Array[Texture2D] = []
 
 # --- Crop definitions
@@ -25,7 +25,7 @@ var crop_defs := {
 	}
 }
 
-# --- Farm state (runtime) ---
+# --- Farm state (runtime)
 # Key: Vector2i cell
 # Value: Dictionary with keys:
 # tilled: bool
@@ -43,16 +43,11 @@ func _ready() -> void:
 	if potato_stage_textures.size() == 0:
 		push_warning("No potato_stage_textures set. Crop will not render stages.")
 
-# -------------------------
-# Public API (call these)
-# -------------------------
-
 func till(cell: Vector2i) -> void:
 	var d := _get_or_create_cell(cell)
 	d["tilled"] = true
 	d["watered"] = false
-	# Do not destroy crop on till; Stardew-style usually requires empty tile.
-	# We'll enforce no tilling if crop planted unless you want otherwise.
+	# Do not destroy crop on till
 	farm_cells[cell] = d
 	_update_ground_visual(cell)
 
@@ -79,7 +74,7 @@ func harvest(cell: Vector2i) -> bool:
 	if not _has_crop(cell): return false
 	if not _is_mature(cell): return false
 
-	# TODO: Inventory.add(crop_id, 1)
+	# TODO: Inventory
 	var d: Dictionary = farm_cells.get(cell, {}) as Dictionary
 	d.erase("crop_id")
 	d.erase("age")
@@ -90,7 +85,6 @@ func harvest(cell: Vector2i) -> bool:
 	_update_ground_visual(cell)
 	return true
 
-# Optional: clear watering at end of day (Stardew-like)
 func clear_water(cell: Vector2i) -> void:
 	if not farm_cells.has(cell): return
 	var d: Dictionary = farm_cells.get(cell, {}) as Dictionary
@@ -103,7 +97,6 @@ func clear_water(cell: Vector2i) -> void:
 # -------------------------
 
 func _on_day_advanced(_new_day: int, _old_day: int) -> void:
-	# Grow crops one "day" at a time, only if watered.
 	for cell in farm_cells.keys():
 		var d: Dictionary = farm_cells[cell]
 
@@ -225,7 +218,7 @@ func _cell_to_world_center(cell: Vector2i) -> Vector2:
 	return farm_map.to_global(local_center)
 
 func _set_farm_tile(cell: Vector2i, atlas_coords: Vector2i) -> void:
-	# TileMapLayer API: set_cell(coords, source_id, atlas_coords, alternative_tile)
+	# set_cell(coords, source_id, atlas_coords, alternative_tile)
 	# atlas_coords specifies which tile in the atlas to use
 	# If you're using atlas coords, you’ll change this function (see note below).
 	farm_map.set_cell(cell, tile_source_id, atlas_coords, 0)
