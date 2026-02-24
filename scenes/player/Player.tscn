@@ -175,7 +175,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tpg5x")
 }],
-"loop": true,
+"loop": false,
 "name": &"hoe_swing",
 "speed": 9.0
 }, {
@@ -301,7 +301,6 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=1886192683]
-scale = Vector2(2, 2)
 script = ExtResource("1_4kuee")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=627747602]
@@ -311,7 +310,7 @@ shape = SubResource("RectangleShape2D_c3xxp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1672371478]
 sprite_frames = SubResource("SpriteFrames_eac1a")
-animation = &"idle"
+animation = &"hoe_swing"
 autoplay = "idle"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
