@@ -9,10 +9,10 @@ var tool := 1
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_1: tool = 1
-		if event.keycode == KEY_2: tool = 2
-		if event.keycode == KEY_3: tool = 3
-		if event.keycode == KEY_4: tool = 4
-		if event.keycode == KEY_N:
+		elif event.keycode == KEY_2: tool = 2
+		elif event.keycode == KEY_3: tool = 3
+		elif event.keycode == KEY_4: tool = 4
+		elif event.keycode == KEY_N:
 			# Advance to next day
 			TimeSystem.advance_day()
 			print("Advanced to day ", TimeSystem.time_tick.get_time_unit("day"))

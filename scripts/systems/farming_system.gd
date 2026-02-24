@@ -12,6 +12,8 @@ class_name FarmingSystem
 @export var tile_source_id: int = 0
 const ATLAS_TILLED := Vector2i(0, 0) # correlating to the base tiles grid
 const ATLAS_WATERED := Vector2i(1, 0) # correlating to the base tiles grid
+
+# Will be used in the future
 const ATLAS_DIRT := Vector2i(2, 0) # correlating to the base tiles grid
 
 # --- Crop visuals: stage textures
@@ -38,6 +40,8 @@ var farm_cells: Dictionary = {}
 var crop_sprites: Dictionary = {}
 
 func _ready() -> void:
+	assert(farm_map != null, "FarmingSystem: farm_tilemap_path is not set or invalid.")
+	assert(crops_layer != null, "FarmingSystem: crops_layer_path is not set or invalid.")
 	TimeSystem.day_advanced.connect(_on_day_advanced)
 
 	if potato_stage_textures.size() == 0:
@@ -100,7 +104,7 @@ func _on_day_advanced(_new_day: int, _old_day: int) -> void:
 	for cell in farm_cells.keys():
 		var d: Dictionary = farm_cells[cell]
 
-		# If tilled but no crop, just reset water
+		# Skip cells that aren't tilled
 		if d.get("tilled", false) != true:
 			continue
 
@@ -206,8 +210,7 @@ func _get_crop_stage_texture(crop_id: String, age: int) -> Texture2D:
 
 	# Map age -> stage index [0..stages-1]
 	# age 0 => stage 0, mature => last stage
-	var t: float = clamp(float(age) / float(max(1, growth_days)), 0.0, 1.0)
-	var stage_index := int(floor(t * float(stages - 1)))
+	var stage_index := mini(age, stages - 1)
 
 	stage_index = clamp(stage_index, 0, min(stages - 1, potato_stage_textures.size() - 1))
 	return potato_stage_textures[stage_index]
