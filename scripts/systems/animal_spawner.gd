@@ -41,8 +41,14 @@ func _spawn_one(scene: PackedScene) -> void:
 	if animal == null:
 		return
 
-	animal.global_position = _find_spawn_position()
+	var spawn_pos := _find_spawn_position()
+
 	add_child(animal)
+	animal.global_position = spawn_pos
+
+	# If this animal uses shared animal.gd script, sync its home after placement
+	if animal.has_method("set_home_position"):
+		animal.call("set_home_position", spawn_pos)
 
 func _find_spawn_position() -> Vector2:
 	var tries := 30

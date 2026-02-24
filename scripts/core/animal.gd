@@ -24,7 +24,6 @@ var _last_horizontal_sign: int = -1 # -1 = left, 1 = right
 func _ready() -> void:
 	_home_position = global_position
 	_target_position = global_position
-	_pick_new_target()
 
 	if anim and anim.sprite_frames:
 		if anim.sprite_frames.has_animation("idle"):
@@ -63,7 +62,15 @@ func _pick_new_target() -> void:
 		randf_range(-wander_radius, wander_radius)
 	)
 	_target_position = _home_position + offset
-
+	
+func set_home_position(new_home: Vector2) -> void:
+	_home_position = new_home
+	_target_position = new_home
+	global_position = new_home
+	_is_waiting = false
+	_wait_timer = 0.0
+	_pick_new_target()
+	
 func _update_animation_for_direction(dir: Vector2) -> void:
 	if not anim or not anim.sprite_frames:
 		return

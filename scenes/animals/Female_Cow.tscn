@@ -122,5 +122,5 @@ script = ExtResource("1_mujnp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=662378738]
 sprite_frames = SubResource("SpriteFrames_gjl2i")
-animation = &"walk_down"
-autoplay = "idle"
+animation = &"walk_side"
+autoplay = "walk_side"

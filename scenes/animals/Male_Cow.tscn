@@ -122,5 +122,5 @@ script = ExtResource("1_xafdd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1882510799]
 sprite_frames = SubResource("SpriteFrames_txw3v")
-animation = &"walk_down"
-autoplay = "idle"
+animation = &"walk_side"
+autoplay = "walk_side"
