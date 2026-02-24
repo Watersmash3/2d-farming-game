@@ -32,12 +32,14 @@ func _on_time_unit_changed(unit_name: String, new_value: int, old_value: int) ->
 		day_advanced.emit(new_value, old_value)
 
 func set_paused(paused: bool) -> void:
+	if not time_tick: return
 	if paused:
 		time_tick.pause()
 	else:
 		time_tick.resume()
 
 func advance_day() -> void:
+	if not time_tick: return
 	var old_day := time_tick.get_time_unit("day")
-	time_tick.set_time_unit("hour", 0)
+	time_tick.set_time_unit("hour", 6)
 	time_tick.set_time_unit("day", old_day + 1)
