@@ -57,9 +57,8 @@ func till(cell: Vector2i) -> void:
 
 func water(cell: Vector2i) -> void:
 	if not _is_tilled(cell): return
-	var d: Dictionary = farm_cells.get(cell, {}) as Dictionary
+	var d := farm_cells[cell] as Dictionary
 	d["watered"] = true
-	farm_cells[cell] = d
 	_update_ground_visual(cell)
 
 func plant(cell: Vector2i, crop_id: String) -> void:
@@ -67,10 +66,9 @@ func plant(cell: Vector2i, crop_id: String) -> void:
 	if _has_crop(cell): return
 	if not crop_defs.has(crop_id): return
 
-	var d: Dictionary = farm_cells.get(cell, {}) as Dictionary
+	var d := farm_cells[cell] as Dictionary
 	d["crop_id"] = crop_id
 	d["age"] = 0
-	farm_cells[cell] = d
 
 	_spawn_or_update_crop_sprite(cell)
 
@@ -79,10 +77,9 @@ func harvest(cell: Vector2i) -> bool:
 	if not _is_mature(cell): return false
 
 	# TODO: Inventory
-	var d: Dictionary = farm_cells.get(cell, {}) as Dictionary
+	var d := farm_cells[cell] as Dictionary
 	d.erase("crop_id")
 	d.erase("age")
-	farm_cells[cell] = d
 
 	_remove_crop_sprite(cell)
 	# ground stays tilled
@@ -91,9 +88,8 @@ func harvest(cell: Vector2i) -> bool:
 
 func clear_water(cell: Vector2i) -> void:
 	if not farm_cells.has(cell): return
-	var d: Dictionary = farm_cells.get(cell, {}) as Dictionary
+	var d := farm_cells[cell] as Dictionary
 	d["watered"] = false
-	farm_cells[cell] = d
 	_update_ground_visual(cell)
 
 # -------------------------
