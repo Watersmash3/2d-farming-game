@@ -2,6 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://buqhqrywg3euo" path="res://assets/tilesets/Tileset Spring.png" id="1_xpb83"]
 [ext_resource type="PackedScene" uid="uid://ds2fppti8hcnr" path="res://scenes/player/Player.tscn" id="2_ct0am"]
+[ext_resource type="Script" uid="uid://xy5rrisgrpp" path="res://scripts/systems/animal_spawner.gd" id="3_70k0y"]
+[ext_resource type="PackedScene" uid="uid://cssntsarp3ed6" path="res://scenes/animals/Blonde_Chicken.tscn" id="4_pip6g"]
+[ext_resource type="PackedScene" uid="uid://cvdd3oluoa7oi" path="res://scenes/animals/Red_Chicken.tscn" id="5_qh8t5"]
+[ext_resource type="PackedScene" uid="uid://b6m572wae8xbl" path="res://scenes/animals/Female_Cow.tscn" id="6_ngtpd"]
+[ext_resource type="PackedScene" uid="uid://c5bmrrofo1kto" path="res://scenes/animals/Male_Cow.tscn" id="7_5hjce"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ct0am"]
 texture = ExtResource("1_xpb83")
@@ -266,3 +271,11 @@ shape = SubResource("RectangleShape2D_qh8t5")
 
 [node name="Player" parent="StaticBody2D" unique_id=1886192683 instance=ExtResource("2_ct0am")]
 position = Vector2(-21, -24)
+
+[node name="AnimalSpawner" type="Node2D" parent="." unique_id=1978452982]
+script = ExtResource("3_70k0y")
+chicken_scenes = Array[PackedScene]([ExtResource("4_pip6g"), ExtResource("5_qh8t5")])
+cow_scenes = Array[PackedScene]([ExtResource("6_ngtpd"), ExtResource("7_5hjce")])
+spawn_chickens = 8
+spawn_cows = 8
+spawn_area_size = Vector2(400, 380)

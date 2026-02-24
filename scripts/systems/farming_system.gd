@@ -22,7 +22,7 @@ const ATLAS_DIRT := Vector2i(2, 0) # correlating to the base tiles grid
 # --- Crop definitions
 var crop_defs := {
 	"potato": {
-		"growth_days": 7,
+		"growth_days": 6,
 		"stages": 7
 	}
 }
