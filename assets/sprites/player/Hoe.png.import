@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lkcyoujng1mq"
-path="res://.godot/imported/Hoe_Swing.png-a2513aac4744efc779eced36d06ab467.ctex"
+uid="uid://bpare7mmy5xl1"
+path="res://.godot/imported/Hoe.png-4cf2928c8bc2afac3dcb88379c30bd2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/Hoe_Swing.png"
-dest_files=["res://.godot/imported/Hoe_Swing.png-a2513aac4744efc779eced36d06ab467.ctex"]
+source_file="res://assets/sprites/player/Hoe.png"
+dest_files=["res://.godot/imported/Hoe.png-4cf2928c8bc2afac3dcb88379c30bd2c.ctex"]
 
 [params]
 
