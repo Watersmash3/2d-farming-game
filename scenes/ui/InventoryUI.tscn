@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://c0622m6b2d0ox"]
+
+[ext_resource type="PackedScene" uid="uid://buw3swc64fsfw" path="res://scenes/ui/inventory_slot.tscn" id="1_p0ay3"]
+
+[sub_resource type="GDScript" id="GDScript_0ix0h"]
+script/source = "extends Node
+
+@onready var panel := $CanvasLayer/Control/Panel
+@onready var grid := $CanvasLayer/Control/Panel/VBoxContainer/Grid
+@onready var hint := $CanvasLayer/Control/Panel/VBoxContainer/HintLabel
+
+func _ready() -> void:
+	panel.visible = false
+	InventoryState.inventory_changed.connect(refresh)
+	refresh()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"toggle_inventory\"):
+		panel.visible = !panel.visible
+		get_viewport().set_input_as_handled()
+
+func refresh() -> void:
+	for c in grid.get_children():
+		c.queue_free()
+
+	var keys := InventoryState.inventory.keys()
+	keys.sort()
+
+	if keys.is_empty():
+		hint.text = \"(empty)\"
+		return
+
+	hint.text = \"Inventory (press I to close)\"
+
+	for id in keys:
+		var row := HBoxContainer.new()
+		var name_lbl := Label.new()
+		name_lbl.text = str(id)
+
+		var count_lbl := Label.new()
+		count_lbl.text = \"x%d\" % int(InventoryState.inventory[id])
+
+		row.add_child(name_lbl)
+		row.add_child(count_lbl)
+		grid.add_child(row)
+"
+
+[node name="InventoryUi" type="Node2D" unique_id=288281950]
+script = SubResource("GDScript_0ix0h")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1195466166]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=246780240]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control" unique_id=397382656]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel" unique_id=586203552]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer" unique_id=364789528]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="CanvasLayer/Control/Panel/VBoxContainer" unique_id=333257935]
+layout_mode = 2
+
+[node name="HintLabel" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer" unique_id=446728589]
+layout_mode = 2
+
+[node name="HotBar" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=1490842895]
+layout_mode = 0
+offset_right = 540.0
+offset_bottom = 64.0
+
+[node name="InventorySlot" parent="CanvasLayer/Control/HotBar" unique_id=1287065773 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="CanvasLayer/Control/HotBar" unique_id=251187703 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="CanvasLayer/Control/HotBar" unique_id=225317488 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="CanvasLayer/Control/HotBar" unique_id=337160480 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="CanvasLayer/Control/HotBar" unique_id=1298854840 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="CanvasLayer/Control/HotBar" unique_id=1845168073 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="CanvasLayer/Control/HotBar" unique_id=957805787 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="CanvasLayer/Control/HotBar" unique_id=321567519 instance=ExtResource("1_p0ay3")]
+layout_mode = 2

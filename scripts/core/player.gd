@@ -83,6 +83,7 @@ func _update_animation(input_dir: Vector2) -> void:
 
 func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
+	InventoryState.add_item("potato_seed", 10)
 
 func _on_animation_finished() -> void:
 	if sprite.animation == "hoe_swing":

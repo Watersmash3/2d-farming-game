@@ -66,26 +66,40 @@ func plant(cell: Vector2i, crop_id: String) -> void:
 	if _has_crop(cell): return
 	if not crop_defs.has(crop_id): return
 
+	# ✅ consume 1 seed (ex: potato -> potato_seed)
+	var seed_id := crop_id + "_seed"
+	if not InventoryState.remove_item(seed_id, 1):
+		return  # no seeds, so don't plant
+
 	var d := farm_cells[cell] as Dictionary
 	d["crop_id"] = crop_id
 	d["age"] = 0
 
 	_spawn_or_update_crop_sprite(cell)
-
+	
 func harvest(cell: Vector2i) -> bool:
 	if not _has_crop(cell): return false
 	if not _is_mature(cell): return false
 
-	# TODO: Inventory
 	var d := farm_cells[cell] as Dictionary
+	var crop_id: String = d["crop_id"]
+
+	# ✅ always give the crop itself
+	InventoryState.add_item(crop_id, 1)
+
+	# ✅ if it's potato, also give 1–3 potato seeds
+	if crop_id == "potato":
+		var seeds := randi_range(1, 3)
+		InventoryState.add_item("potato_seed", seeds)
+		# (or: InventoryState.add_item(crop_id + "_seed", seeds))
+
 	d.erase("crop_id")
 	d.erase("age")
 
 	_remove_crop_sprite(cell)
-	# ground stays tilled
 	_update_ground_visual(cell)
 	return true
-
+		
 func clear_water(cell: Vector2i) -> void:
 	if not farm_cells.has(cell): return
 	var d := farm_cells[cell] as Dictionary

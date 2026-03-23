@@ -20,6 +20,8 @@
 [ext_resource type="PackedScene" uid="uid://cvdd3oluoa7oi" path="res://scenes/animals/Red_Chicken.tscn" id="18_jy5j1"]
 [ext_resource type="PackedScene" uid="uid://b6m572wae8xbl" path="res://scenes/animals/Female_Cow.tscn" id="19_umbuh"]
 [ext_resource type="PackedScene" uid="uid://c5bmrrofo1kto" path="res://scenes/animals/Male_Cow.tscn" id="20_juaju"]
+[ext_resource type="PackedScene" uid="uid://c0622m6b2d0ox" path="res://scenes/ui/InventoryUI.tscn" id="21_mmgww"]
+[ext_resource type="Script" uid="uid://cwgfbe34mc8w1" path="res://scripts/ui/inventory_ui.gd" id="22_jy5j1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yr1n6"]
 texture = ExtResource("1_qxiha")
@@ -464,3 +466,8 @@ cow_scenes = Array[PackedScene]([ExtResource("19_umbuh"), ExtResource("20_juaju"
 spawn_chickens = 8
 spawn_cows = 8
 spawn_area_size = Vector2(400, 380)
+
+[node name="InventoryUi" parent="." unique_id=288281950 instance=ExtResource("21_mmgww")]
+script = ExtResource("22_jy5j1")
+potato_seed_icon = ExtResource("8_wryly")
+potato_icon = ExtResource("14_mmgww")
