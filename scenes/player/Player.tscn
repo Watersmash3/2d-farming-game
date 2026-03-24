@@ -2,8 +2,15 @@
 
 [ext_resource type="Script" uid="uid://d1m8h4d2tdnxb" path="res://scripts/core/player.gd" id="1_4kuee"]
 [ext_resource type="Texture2D" uid="uid://c5snk4tgni00e" path="res://assets/sprites/player/Idle.png" id="2_524rm"]
+[ext_resource type="AudioStream" uid="uid://c483fpybv4ggf" path="res://assets/sounds/player/Footstep_1.wav" id="2_c3xxp"]
 [ext_resource type="Texture2D" uid="uid://bpare7mmy5xl1" path="res://assets/sprites/player/Hoe.png" id="2_tpg5x"]
+[ext_resource type="AudioStream" uid="uid://x0opwxnocixe" path="res://assets/sounds/player/Footstep_2.wav" id="3_npwbq"]
 [ext_resource type="Texture2D" uid="uid://dbugv0w1r55un" path="res://assets/sprites/player/Walk.png" id="3_tpg5x"]
+[ext_resource type="AudioStream" uid="uid://xl0663aope8d" path="res://assets/sounds/player/Footstep_3.wav" id="4_v42im"]
+[ext_resource type="AudioStream" uid="uid://be46jcfw3e1m1" path="res://assets/sounds/player/Footstep_4.wav" id="5_pn6s4"]
+[ext_resource type="AudioStream" uid="uid://cfyxpi1vwt4g6" path="res://assets/sounds/player/Till_1.wav" id="6_5stf6"]
+[ext_resource type="AudioStream" uid="uid://b8dxn5xw7fedg" path="res://assets/sounds/player/Till_2.wav" id="7_180ig"]
+[ext_resource type="AudioStream" uid="uid://cnh4f4tlkjk6w" path="res://assets/sounds/player/Till_3.wav" id="8_20koh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c3xxp"]
 size = Vector2(8, 14)
@@ -223,7 +230,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hoe_swing",
-"speed": 9.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -244,9 +251,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u3aff")
 }],
-"loop": true,
+"loop": false,
 "name": &"hoe_swing_back",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -267,9 +274,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p3v13")
 }],
-"loop": true,
+"loop": false,
 "name": &"hoe_swing_front",
-"speed": 5.0
+"speed": 6.5
 }, {
 "frames": [{
 "duration": 1.0,
@@ -395,6 +402,32 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=1886192683]
 script = ExtResource("1_4kuee")
 
+[node name="FootstepA" type="AudioStreamPlayer2D" parent="." unique_id=103349347]
+stream = ExtResource("2_c3xxp")
+bus = &"SFX"
+
+[node name="FootstepB" type="AudioStreamPlayer2D" parent="." unique_id=298352600]
+stream = ExtResource("3_npwbq")
+bus = &"SFX"
+
+[node name="FootstepC" type="AudioStreamPlayer2D" parent="." unique_id=177252167]
+stream = ExtResource("4_v42im")
+bus = &"SFX"
+
+[node name="FootstepD" type="AudioStreamPlayer2D" parent="." unique_id=1851604470]
+stream = ExtResource("5_pn6s4")
+bus = &"SFX"
+
+[node name="TillA" type="AudioStreamPlayer2D" parent="." unique_id=1053237256]
+stream = ExtResource("6_5stf6")
+bus = &"SFX"
+
+[node name="TillB" type="AudioStreamPlayer2D" parent="." unique_id=850399893]
+stream = ExtResource("7_180ig")
+
+[node name="TillC" type="AudioStreamPlayer2D" parent="." unique_id=1212006485]
+stream = ExtResource("8_20koh")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=627747602]
 shape = SubResource("RectangleShape2D_c3xxp")
 
@@ -402,7 +435,7 @@ shape = SubResource("RectangleShape2D_c3xxp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1672371478]
 sprite_frames = SubResource("SpriteFrames_eac1a")
-animation = &"hoe_swing"
+animation = &"hoe_swing_front"
 autoplay = "idle"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
