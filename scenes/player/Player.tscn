@@ -313,5 +313,8 @@ sprite_frames = SubResource("SpriteFrames_eac1a")
 animation = &"hoe_swing"
 autoplay = "idle"
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=523050440]
+position_smoothing_enabled = true
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="ready" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_ready"]
