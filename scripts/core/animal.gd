@@ -6,10 +6,14 @@ extends Node2D
 @export var pause_time_max: float = 1.5
 @export var can_wander: bool = true
 @export var use_directional_animations: bool = true
-
+@export var min_interval: float = 6.0
+@export var max_interval: float = 12.0
 # If sprite faces left by default, keep this true.
 # If it faces right by default, set false on animal scene.
 @export var flip_when_moving_right: bool = true
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@export var ambient_sounds: Array[AudioStream] = []
+@onready var ambient_player: AudioStreamPlayer2D = $AmbientPlayer
 
 var _home_position: Vector2
 var _target_position: Vector2
@@ -19,12 +23,15 @@ var _wait_timer: float = 0.0
 var _last_facing: String = "side"   # "side", "up", "down"
 var _last_horizontal_sign: int = -1 # -1 = left, 1 = right
 
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+var _last_sound_index := -1
+var _sound_timer := 0.0
+
 
 func _ready() -> void:
+	_reset_timer()
 	_home_position = global_position
 	_target_position = global_position
-
+	
 	if anim and anim.sprite_frames:
 		if anim.sprite_frames.has_animation("idle"):
 			anim.play("idle")
@@ -32,6 +39,11 @@ func _ready() -> void:
 			anim.play("walk_side")
 
 func _process(delta: float) -> void:
+	_sound_timer -= delta
+	if _sound_timer <= 0.0:
+		_play_random_ambient()
+		_reset_timer()
+		
 	if not can_wander:
 		return
 
@@ -136,3 +148,17 @@ func _apply_horizontal_flip(horizontal_sign: int) -> void:
 		anim.flip_h = flip_when_moving_right
 	else:
 		anim.flip_h = not flip_when_moving_right
+		
+func _reset_timer() -> void:
+	_sound_timer = randf_range(min_interval, max_interval)
+
+func _play_random_ambient() -> void:
+	if ambient_sounds.is_empty():
+		return
+	var index := randi() % ambient_sounds.size()
+	if index == _last_sound_index:
+		index = (index + 1) % ambient_sounds.size()
+	_last_sound_index = index
+	ambient_player.stream = ambient_sounds[index]
+	ambient_player.pitch_scale = randf_range(0.9, 1.1)
+	ambient_player.play()

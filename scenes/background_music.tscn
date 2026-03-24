@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bho2hq4sqpusl"]
+
+[ext_resource type="AudioStream" uid="uid://4ysnj7e5qq8f" path="res://assets/music/ES_A Green Embrace - Rand Aldo.mp3" id="1_0rulj"]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" unique_id=1248224555]
+stream = ExtResource("1_0rulj")
+autoplay = true
+bus = &"Music"

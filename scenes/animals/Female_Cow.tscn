@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://b6m572wae8xbl"]
 
 [ext_resource type="Script" uid="uid://xebrdvdaq80q" path="res://scripts/core/animal.gd" id="1_mujnp"]
-[ext_resource type="Texture2D" uid="uid://b2nunliw3d3vn" path="res://assets/sprites/objects/Female Cow Brown.png" id="2_0ewfv"]
+[ext_resource type="Texture2D" uid="uid://drwjye3856wc" path="res://assets/sprites/objects/Female Cow Brown.png" id="2_0ewfv"]
+[ext_resource type="AudioStream" uid="uid://cl01e6lbwp1x2" path="res://assets/sounds/animals/Cow_Moo_1.wav" id="2_hlk8k"]
+[ext_resource type="AudioStream" uid="uid://b7psitxlcn5bm" path="res://assets/sounds/animals/Cow_Moo_2.wav" id="3_y1h0o"]
+[ext_resource type="AudioStream" uid="uid://c86tmcuugdabf" path="res://assets/sounds/animals/Cow_Moo_3.wav" id="4_6v5ut"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y87q3"]
 atlas = ExtResource("2_0ewfv")
@@ -119,8 +122,13 @@ animations = [{
 
 [node name="FemaleCow" type="Node2D" unique_id=1115315022]
 script = ExtResource("1_mujnp")
+ambient_sounds = Array[AudioStream]([ExtResource("2_hlk8k"), ExtResource("3_y1h0o"), ExtResource("4_6v5ut")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=662378738]
 sprite_frames = SubResource("SpriteFrames_gjl2i")
 animation = &"walk_side"
 autoplay = "walk_side"
+
+[node name="AmbientPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1039886064]
+max_distance = 500.0
+bus = &"Animal Ambience"
