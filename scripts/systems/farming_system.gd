@@ -1,6 +1,8 @@
 extends Node
 class_name FarmingSystem
 
+signal crop_harvested(cell: Vector2i)
+
 # --- Assign in inspector (World.tscn)
 @export var farm_tilemap_path: NodePath
 @export var crops_layer_path: NodePath
@@ -84,7 +86,17 @@ func harvest(cell: Vector2i) -> bool:
 	_remove_crop_sprite(cell)
 	# ground stays tilled
 	_update_ground_visual(cell)
+	crop_harvested.emit(cell)
 	return true
+
+
+## World / automation helpers (grid matches FarmTileMap cells).
+func get_cell_world_center(cell: Vector2i) -> Vector2:
+	return _cell_to_world_center(cell)
+
+
+func is_cell_tilled(cell: Vector2i) -> bool:
+	return _is_tilled(cell)
 
 func clear_water(cell: Vector2i) -> void:
 	if not farm_cells.has(cell): return

@@ -20,6 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://cvdd3oluoa7oi" path="res://scenes/animals/Red_Chicken.tscn" id="18_jy5j1"]
 [ext_resource type="PackedScene" uid="uid://b6m572wae8xbl" path="res://scenes/animals/Female_Cow.tscn" id="19_umbuh"]
 [ext_resource type="PackedScene" uid="uid://c5bmrrofo1kto" path="res://scenes/animals/Male_Cow.tscn" id="20_juaju"]
+[ext_resource type="Script" path="res://scripts/systems/automation_manager.gd" id="21_automgr"]
+[ext_resource type="PackedScene" uid="uid://c8auto_waterer001" path="res://scenes/automation/AutoWaterer.tscn" id="22_awscene"]
+[ext_resource type="PackedScene" uid="uid://bqj8craftmenu01" path="res://scenes/ui/CraftingMenu.tscn" id="23_craft"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yr1n6"]
 texture = ExtResource("1_qxiha")
@@ -454,6 +457,14 @@ farm_tilemap_path = NodePath("../FarmTileMap")
 crops_layer_path = NodePath("../Crops")
 potato_stage_textures = Array[Texture2D]([ExtResource("8_wryly"), ExtResource("9_400s5"), ExtResource("10_0duuj"), ExtResource("11_d0ueh"), ExtResource("12_i08rc"), ExtResource("13_o0dc1"), ExtResource("14_mmgww")])
 
+[node name="Machines" type="Node2D" parent="." unique_id=82001001]
+
+[node name="AutomationManager" type="Node" parent="." unique_id=82001002]
+script = ExtResource("21_automgr")
+farming_path = NodePath("../FarmingSystem")
+machines_root_path = NodePath("../Machines")
+auto_waterer_scene = ExtResource("22_awscene")
+
 [node name="Player" parent="." unique_id=1886192683 instance=ExtResource("8_qh0kd")]
 position = Vector2(35, 61)
 
@@ -464,3 +475,5 @@ cow_scenes = Array[PackedScene]([ExtResource("19_umbuh"), ExtResource("20_juaju"
 spawn_chickens = 8
 spawn_cows = 8
 spawn_area_size = Vector2(400, 380)
+
+[node name="CraftingMenu" parent="." instance=ExtResource("23_craft")]

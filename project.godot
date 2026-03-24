@@ -18,6 +18,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 TimeSystem="*uid://c4gdg76u5m3ym"
+PlayerInventory="*res://scripts/systems/player_inventory.gd"
+ProgressionManager="*res://scripts/systems/progression_manager.gd"
+CraftingSystem="*res://scripts/systems/crafting_system.gd"
 
 [input]
 
