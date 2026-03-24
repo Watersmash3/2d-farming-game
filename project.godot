@@ -15,6 +15,10 @@ run/main_scene="uid://mol0gnj6nqwt"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://cxhy1vf1tbhhr"
+
 [autoload]
 
 InventoryState="*res://scripts/core/inventory_state.gd"
@@ -22,6 +26,7 @@ ProgressionManager="*res://scripts/core/progression_manager.gd"
 AutomationManager="*res://scripts/systems/automation_manager.gd"
 Crafting="*res://scripts/systems/crafting_system.gd"
 TimeSystem="*uid://c4gdg76u5m3ym"
+BackgroundMusic="*uid://bho2hq4sqpusl"
 
 [input]
 

@@ -3,8 +3,8 @@ extends Node2D
 @export var chicken_scenes: Array[PackedScene] = []
 @export var cow_scenes: Array[PackedScene] = []
 
-@export var spawn_chickens: int = 5
-@export var spawn_cows: int = 2
+@export var spawn_chickens: int = 3
+@export var spawn_cows: int = 3
 
 # World area to spawn in
 @export var spawn_area_position: Vector2 = Vector2(16, 16)
