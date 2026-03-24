@@ -601,9 +601,11 @@ bus = &"SFX"
 
 [node name="TillB" type="AudioStreamPlayer2D" parent="." unique_id=850399893]
 stream = ExtResource("7_180ig")
+bus = &"SFX"
 
 [node name="TillC" type="AudioStreamPlayer2D" parent="." unique_id=1212006485]
 stream = ExtResource("8_20koh")
+bus = &"SFX"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=627747602]
 shape = SubResource("RectangleShape2D_c3xxp")
