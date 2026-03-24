@@ -2,6 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://debjtdaj2ctxq" path="res://assets/sprites/objects/Chicken Red.png" id="1_5y6lq"]
 [ext_resource type="Script" uid="uid://xebrdvdaq80q" path="res://scripts/core/animal.gd" id="1_oxead"]
+[ext_resource type="AudioStream" uid="uid://cgdjsakd8dp2j" path="res://assets/sounds/animals/Chicken_Cluck_1.wav" id="2_tg8q3"]
+[ext_resource type="AudioStream" uid="uid://bjut5wonu158h" path="res://assets/sounds/animals/Chicken_Cluck_2.wav" id="3_p1xj4"]
+[ext_resource type="AudioStream" uid="uid://dg04enkrt8tcw" path="res://assets/sounds/animals/Chicken_Cluck_3.wav" id="4_22bos"]
+[ext_resource type="AudioStream" uid="uid://dyncrehun3daj" path="res://assets/sounds/animals/Rooster_Call_1.wav" id="5_irua3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oxead"]
 atlas = ExtResource("1_5y6lq")
@@ -58,7 +62,12 @@ animations = [{
 
 [node name="Red_Chicken" type="Node2D" unique_id=1100063822]
 script = ExtResource("1_oxead")
+ambient_sounds = Array[AudioStream]([ExtResource("2_tg8q3"), ExtResource("3_p1xj4"), ExtResource("4_22bos"), ExtResource("5_irua3")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1404198788]
 sprite_frames = SubResource("SpriteFrames_p1xj4")
 autoplay = "walk_side"
+
+[node name="AmbientPlayer" type="AudioStreamPlayer2D" parent="." unique_id=717278007]
+max_distance = 500.0
+bus = &"Animal Ambience"

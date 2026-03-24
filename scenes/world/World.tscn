@@ -461,6 +461,4 @@ position = Vector2(35, 61)
 script = ExtResource("16_o0dc1")
 chicken_scenes = Array[PackedScene]([ExtResource("17_mmgww"), ExtResource("18_jy5j1")])
 cow_scenes = Array[PackedScene]([ExtResource("19_umbuh"), ExtResource("20_juaju")])
-spawn_chickens = 8
-spawn_cows = 8
 spawn_area_size = Vector2(400, 380)
