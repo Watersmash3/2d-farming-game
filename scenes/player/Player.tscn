@@ -314,6 +314,11 @@ animation = &"hoe_swing"
 autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=523050440]
+limit_left = 0
+limit_top = 0
+limit_right = 3600
+limit_bottom = 3750
+limit_smoothed = true
 position_smoothing_enabled = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

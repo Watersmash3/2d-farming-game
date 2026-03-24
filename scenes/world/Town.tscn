@@ -2052,7 +2052,7 @@ texture = ExtResource("12_c0xpp")
 sources/0 = SubResource("TileSetAtlasSource_x5wyy")
 
 [node name="Town" type="Node2D" unique_id=14324027]
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=472090391]
 
@@ -2068,7 +2068,7 @@ tile_set = SubResource("TileSet_vxi8q")
 [node name="Cliffs" type="TileMapLayer" parent="Tilemaps" unique_id=658731251]
 
 [node name="Player" parent="." unique_id=1886192683 instance=ExtResource("13_vxi8q")]
-position = Vector2(624, 436)
+position = Vector2(623.5, 436)
 
 [node name="Structures" type="Node2D" parent="." unique_id=1349917099]
 
