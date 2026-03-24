@@ -1,8 +1,10 @@
 extends Node
 
 signal inventory_changed
+signal selected_item_changed(item_id: String)
 
 var inventory: Dictionary = {}  # id -> count
+var selected_item_id: String = ""
 var max_slots := 24  # optional, simple cap (number of unique items)
 
 func can_add(item_id: String, amount: int = 1) -> bool:
@@ -34,3 +36,10 @@ func remove_item(item_id: String, amount: int = 1) -> bool:
 
 func get_count(item_id: String) -> int:
 	return int(inventory.get(item_id, 0))
+
+
+func set_selected_item(item_id: String) -> void:
+	if selected_item_id == item_id:
+		return
+	selected_item_id = item_id
+	selected_item_changed.emit(selected_item_id)

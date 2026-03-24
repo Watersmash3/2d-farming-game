@@ -83,7 +83,12 @@ func _update_animation(input_dir: Vector2) -> void:
 
 func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
+	# One potato_seed stack only; more come from harvest. TODO: new-game / difficulty presets.
 	InventoryState.add_item("potato_seed", 10)
+	# TODO: starter bundles should come from game config / new-game flow, not the player node.
+	InventoryState.add_item("wood", 24)
+	InventoryState.add_item("stone", 12)
+	InventoryState.add_item("fiber", 6)
 
 func _on_animation_finished() -> void:
 	if sprite.animation == "hoe_swing":

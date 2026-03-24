@@ -2,50 +2,88 @@ extends Node
 
 @export var potato_seed_icon: Texture2D = preload("res://assets/sprites/potato/Spring Crops_0001.png")
 @export var potato_icon: Texture2D = preload("res://assets/sprites/potato/Spring Crops_0007.png")
+@export var wood_icon: Texture2D = preload("res://assets/tilesets/Maple Tree.png")
+@export var stone_icon: Texture2D = preload("res://assets/tilesets/Road copiar.png")
+@export var fiber_icon: Texture2D = preload("res://assets/tilesets/Interior.png")
+@export var auto_waterer_icon: Texture2D = preload("res://assets/tilesets/chest.png")
 
-@onready var hotbar := $CanvasLayer/Control/HotBar
-@onready var panel := $CanvasLayer/Control/Panel
+@onready var hotbar: HBoxContainer = $CanvasLayer/Control/HotBar
+@onready var panel: Control = $CanvasLayer/Control/Panel
 
-var icon_by_id := {}
+var icon_by_id: Dictionary = {}
+## Parallel to hotbar slot index after refresh (which item id occupies each slot).
+var _slot_item_ids: Array[String] = []
+
 
 func _ready() -> void:
 	icon_by_id = {
 		"potato_seed": potato_seed_icon,
 		"potato": potato_icon,
+		"wood": wood_icon,
+		"stone": stone_icon,
+		"fiber": fiber_icon,
+		"auto_waterer": auto_waterer_icon,
 	}
 
-	# Never show the panel
 	panel.visible = false
-
-	# Start with hotbar hidden or visible depending on what you want
 	hotbar.visible = false
 
+	for slot: Node in hotbar.get_children():
+		if slot.has_signal("slot_pressed"):
+			slot.slot_pressed.connect(_on_slot_pressed)
+
 	InventoryState.inventory_changed.connect(refresh)
+	InventoryState.selected_item_changed.connect(func(_id: String) -> void: _apply_slot_highlights())
 	refresh()
 
-func _input(event: InputEvent) -> void:
+
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_inventory"):
 		hotbar.visible = !hotbar.visible
+		get_viewport().set_input_as_handled()
+
+
+func _on_slot_pressed(item_id: String) -> void:
+	InventoryState.set_selected_item(item_id)
+
 
 func refresh() -> void:
-	var slots := hotbar.get_children()
+	var slots: Array = hotbar.get_children()
 
-	# Hide every slot first
-	for slot in slots:
+	for slot: Node in slots:
 		if slot.has_method("set_slot"):
-			slot.set_slot(null, 0)
+			slot.set_slot(null, 0, "")
 
-	var items := []
-	for id in InventoryState.inventory.keys():
-		var c := InventoryState.get_count(id)
-		if c > 0 and icon_by_id.has(id):
-			items.append(id)
+	_slot_item_ids.clear()
+
+	var items: Array[String] = []
+	for id: Variant in InventoryState.inventory.keys():
+		var item_key: String = str(id)
+		var c: int = InventoryState.get_count(item_key)
+		if c > 0 and icon_by_id.has(item_key):
+			items.append(item_key)
 
 	items.sort()
 
-	var slot_i := 0
-	for id in items:
+	var slot_i: int = 0
+	for id: String in items:
 		if slot_i >= slots.size():
 			break
-		slots[slot_i].set_slot(icon_by_id[id], InventoryState.get_count(id))
+		var sl: Node = slots[slot_i]
+		if sl.has_method("set_slot"):
+			sl.set_slot(icon_by_id[id], InventoryState.get_count(id), id)
+			_slot_item_ids.append(id)
 		slot_i += 1
+
+	_apply_slot_highlights()
+
+
+func _apply_slot_highlights() -> void:
+	var slots: Array = hotbar.get_children()
+	var sel: String = InventoryState.selected_item_id
+	for i: int in range(slots.size()):
+		var sl: Node = slots[i]
+		if not sl.has_method("set_selected"):
+			continue
+		var sid: String = _slot_item_ids[i] if i < _slot_item_ids.size() else ""
+		sl.set_selected(sid != "" and sid == sel)

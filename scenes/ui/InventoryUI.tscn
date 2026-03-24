@@ -1,52 +1,10 @@
 [gd_scene format=3 uid="uid://c0622m6b2d0ox"]
 
 [ext_resource type="PackedScene" uid="uid://buw3swc64fsfw" path="res://scenes/ui/inventory_slot.tscn" id="1_p0ay3"]
-
-[sub_resource type="GDScript" id="GDScript_0ix0h"]
-script/source = "extends Node
-
-@onready var panel := $CanvasLayer/Control/Panel
-@onready var grid := $CanvasLayer/Control/Panel/VBoxContainer/Grid
-@onready var hint := $CanvasLayer/Control/Panel/VBoxContainer/HintLabel
-
-func _ready() -> void:
-	panel.visible = false
-	InventoryState.inventory_changed.connect(refresh)
-	refresh()
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(\"toggle_inventory\"):
-		panel.visible = !panel.visible
-		get_viewport().set_input_as_handled()
-
-func refresh() -> void:
-	for c in grid.get_children():
-		c.queue_free()
-
-	var keys := InventoryState.inventory.keys()
-	keys.sort()
-
-	if keys.is_empty():
-		hint.text = \"(empty)\"
-		return
-
-	hint.text = \"Inventory (press I to close)\"
-
-	for id in keys:
-		var row := HBoxContainer.new()
-		var name_lbl := Label.new()
-		name_lbl.text = str(id)
-
-		var count_lbl := Label.new()
-		count_lbl.text = \"x%d\" % int(InventoryState.inventory[id])
-
-		row.add_child(name_lbl)
-		row.add_child(count_lbl)
-		grid.add_child(row)
-"
+[ext_resource type="Script" path="res://scripts/ui/inventory_ui.gd" id="2_invui"]
 
 [node name="InventoryUi" type="Node2D" unique_id=288281950]
-script = SubResource("GDScript_0ix0h")
+script = ExtResource("2_invui")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1195466166]
 
