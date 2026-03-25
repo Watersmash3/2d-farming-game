@@ -90,7 +90,7 @@ func _update_animation(input_dir: Vector2) -> void:
 
 func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
-  sprite.frame_changed.connect(_on_frame_changed)
+	sprite.frame_changed.connect(_on_frame_changed)
 
 	# One potato_seed stack only; more come from harvest. TODO: new-game / difficulty presets.
 	InventoryState.add_item("potato_seed", 10)
