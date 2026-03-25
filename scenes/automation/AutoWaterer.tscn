@@ -1,11 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://cauto_waterer01"]
+[gd_scene load_steps=6 format=3 uid="uid://cauto_waterer01"]
 
 [ext_resource type="Script" path="res://scripts/automation/auto_waterer.gd" id="1_aw"]
-[ext_resource type="Texture2D" path="res://assets/tilesets/chest.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/Tileset Spring.png" id="2_spring"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/Water props.png" id="3_spray"]
+
+[sub_resource type="AtlasTexture" id="Atlas_watered_pad"]
+atlas = ExtResource("2_spring")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="Atlas_spray_one_tile"]
+atlas = ExtResource("3_spray")
+region = Rect2(0, 0, 16, 16)
 
 [node name="AutoWaterer" type="Node2D"]
 script = ExtResource("1_aw")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_tex")
-scale = Vector2(0.4, 0.4)
+[node name="VisualRoot" type="Node2D" parent="."]
+
+[node name="Pad" type="Sprite2D" parent="VisualRoot"]
+texture = SubResource("Atlas_watered_pad")
+
+[node name="Spray" type="Sprite2D" parent="VisualRoot"]
+z_index = 1
+texture = SubResource("Atlas_spray_one_tile")
