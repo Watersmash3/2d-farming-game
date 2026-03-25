@@ -1,6 +1,9 @@
 extends Node
 class_name FarmingSystem
 
+## Emitted after a successful mature harvest (before cell state is cleared).
+signal crop_harvested(crop_id: String, cell: Vector2i)
+
 # --- Assign in inspector (World.tscn)
 @export var farm_tilemap_path: NodePath
 @export var crops_layer_path: NodePath
@@ -23,8 +26,15 @@ const ATLAS_DIRT := Vector2i(2, 0) # correlating to the base tiles grid
 var crop_defs := {
 	"potato": {
 		"growth_days": 6,
-		"stages": 7
+		"stages": 7,
+		# Seeds granted when harvesting a mature crop (same id as SEED_ITEM_BY_CROP).
+		"seeds_returned_on_harvest": 2,
 	}
+}
+
+## crop_id -> inventory item id consumed when planting (one per plant).
+const SEED_ITEM_BY_CROP: Dictionary = {
+	"potato": "potato_seed",
 }
 
 # --- Farm state (runtime)
@@ -40,6 +50,7 @@ var farm_cells: Dictionary = {}
 var crop_sprites: Dictionary = {}
 
 func _ready() -> void:
+	add_to_group("farming_system")
 	assert(farm_map != null, "FarmingSystem: farm_tilemap_path is not set or invalid.")
 	assert(crops_layer != null, "FarmingSystem: crops_layer_path is not set or invalid.")
 	TimeSystem.day_advanced.connect(_on_day_advanced)
@@ -55,6 +66,7 @@ func till(cell: Vector2i) -> void:
 	farm_cells[cell] = d
 	_update_ground_visual(cell)
 
+## Authoritative watering entry point for player tools and automation.
 func water(cell: Vector2i) -> void:
 	if not _is_tilled(cell): return
 	var d := farm_cells[cell] as Dictionary
@@ -66,6 +78,11 @@ func plant(cell: Vector2i, crop_id: String) -> void:
 	if _has_crop(cell): return
 	if not crop_defs.has(crop_id): return
 
+	if SEED_ITEM_BY_CROP.has(crop_id):
+		var seed_id: String = str(SEED_ITEM_BY_CROP[crop_id])
+		if not InventoryState.remove_item(seed_id, 1):
+			return
+
 	var d := farm_cells[cell] as Dictionary
 	d["crop_id"] = crop_id
 	d["age"] = 0
@@ -76,7 +93,19 @@ func harvest(cell: Vector2i) -> bool:
 	if not _has_crop(cell): return false
 	if not _is_mature(cell): return false
 
-	# TODO: Inventory
+	var harvested_id: String = str(farm_cells[cell].get("crop_id", ""))
+	crop_harvested.emit(harvested_id, cell)
+
+	# TODO: route through a pickup/reward service; kept minimal for this milestone.
+	if Items.DATA.has(harvested_id):
+		InventoryState.add_item(harvested_id, 1)
+
+	var crop_meta: Dictionary = crop_defs.get(harvested_id, {}) as Dictionary
+	var seed_return: int = int(crop_meta.get("seeds_returned_on_harvest", 0))
+	if seed_return > 0 and SEED_ITEM_BY_CROP.has(harvested_id):
+		var seed_item_id: String = str(SEED_ITEM_BY_CROP[harvested_id])
+		InventoryState.add_item(seed_item_id, seed_return)
+
 	var d := farm_cells[cell] as Dictionary
 	d.erase("crop_id")
 	d.erase("age")
@@ -210,6 +239,15 @@ func _get_crop_stage_texture(crop_id: String, age: int) -> Texture2D:
 
 	stage_index = clamp(stage_index, 0, min(stages - 1, potato_stage_textures.size() - 1))
 	return potato_stage_textures[stage_index]
+
+func get_cell_world_center(cell: Vector2i) -> Vector2:
+	return _cell_to_world_center(cell)
+
+
+## Tilled farm tile with no crop; used for machine anchors.
+func is_valid_machine_cell(cell: Vector2i) -> bool:
+	return _is_tilled(cell) and not _has_crop(cell)
+
 
 func _cell_to_world_center(cell: Vector2i) -> Vector2:
 	# Convert map cell to global position for tile center

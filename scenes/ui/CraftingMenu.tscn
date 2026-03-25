@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8craftmenu01"]
+
+[ext_resource type="Script" path="res://scripts/ui/crafting_menu.gd" id="1_script"]
+
+[node name="CraftingMenu" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 520.0
+offset_bottom = 360.0
+
+[node name="Margin" type="MarginContainer" parent="Root/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Root/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Root/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Crafting — Automation"
+
+[node name="Hint" type="Label" parent="Root/Panel/Margin/VBox"]
+layout_mode = 2
+text = "K: close · Unlock: harvest 3 crops or F9 (dev)"
+
+[node name="Scroll" type="ScrollContainer" parent="Root/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RecipeList" type="VBoxContainer" parent="Root/Panel/Margin/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Status" type="Label" parent="Root/Panel/Margin/VBox"]
+layout_mode = 2
+text = ""
