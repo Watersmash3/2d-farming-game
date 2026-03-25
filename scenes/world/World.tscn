@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://8badng6ffma4" path="res://assets/tilesets/Spring Crops.png" id="2_i1jm3"]
 [ext_resource type="Texture2D" uid="uid://6fqbp4qdgo2t" path="res://assets/tilesets/Road copiar.png" id="3_252at"]
 [ext_resource type="Texture2D" uid="uid://bqs0kt6odstds" path="res://assets/tilesets/Maple Tree.png" id="4_qh0kd"]
-[ext_resource type="Texture2D" uid="uid://dug22311274ee" path="res://assets/tilesets/House.png" id="5_yr1n6"]
+[ext_resource type="Texture2D" uid="uid://dug22311274ee" path="res://assets/sprites/objects/House.png" id="5_yr1n6"]
 [ext_resource type="Script" uid="uid://csd0epc0x7ebv" path="res://scripts/systems/farming_system.gd" id="7_qh0kd"]
 [ext_resource type="PackedScene" uid="uid://ds2fppti8hcnr" path="res://scenes/player/Player.tscn" id="8_qh0kd"]
 [ext_resource type="Texture2D" uid="uid://dds40gxdiqqhm" path="res://assets/sprites/potato/Spring Crops_0001.png" id="8_wryly"]

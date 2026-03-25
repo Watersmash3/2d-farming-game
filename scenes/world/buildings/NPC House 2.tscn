@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bhs87updb0d1a"]
+
+[ext_resource type="Texture2D" uid="uid://cheqmnmhck647" path="res://assets/sprites/objects/Base houses.png" id="1_j007l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_436fj"]
+atlas = ExtResource("1_j007l")
+region = Rect2(704, 176, 80, 160)
+
+[node name="NpcHouse2" type="Node2D" unique_id=1238959794]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=333685403]
+position = Vector2(40, -80)
+texture = SubResource("AtlasTexture_436fj")

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://wuahih3gc86d"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wohdp"]
+load_path = "res://.godot/imported/Base houses.png-06b31ee5639dc4476cf79f8f8fdd0014.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj2t7"]
+atlas = SubResource("CompressedTexture2D_wohdp")
+region = Rect2(544, 64, 112, 112)
+
+[node name="NpcHouse1" type="Node2D" unique_id=1813935516]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1606940657]
+position = Vector2(56, -56)
+texture = SubResource("AtlasTexture_mj2t7")

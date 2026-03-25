@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c5wvbk3lvh2h"]
+
+[ext_resource type="Texture2D" uid="uid://dhmuwgu1b8wtm" path="res://assets/sprites/objects/Town Hall.png" id="1_3ul66"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ul66"]
+atlas = ExtResource("1_3ul66")
+region = Rect2(224, 0, 224, 160)
+
+[node name="TownHall" type="Node2D" unique_id=582975731]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1588023434]
+position = Vector2(112, -80)
+texture = SubResource("AtlasTexture_3ul66")
+region_rect = Rect2(224, 0, 224, 160)
