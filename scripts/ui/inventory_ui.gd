@@ -1,12 +1,5 @@
 extends Node
 
-@export var potato_seed_icon: Texture2D = preload("res://assets/sprites/potato/Spring Crops_0001.png")
-@export var potato_icon: Texture2D = preload("res://assets/sprites/potato/Spring Crops_0007.png")
-@export var wood_icon: Texture2D = preload("res://assets/tilesets/Maple Tree.png")
-@export var stone_icon: Texture2D = preload("res://assets/tilesets/Road copiar.png")
-@export var fiber_icon: Texture2D = preload("res://assets/tilesets/Interior.png")
-@export var auto_waterer_icon: Texture2D = preload("res://assets/tilesets/chest.png")
-
 @onready var hotbar: HBoxContainer = $CanvasLayer/Control/HotBar
 @onready var panel: Control = $CanvasLayer/Control/Panel
 
@@ -16,14 +9,7 @@ var _slot_item_ids: Array[String] = []
 
 
 func _ready() -> void:
-	icon_by_id = {
-		"potato_seed": potato_seed_icon,
-		"potato": potato_icon,
-		"wood": wood_icon,
-		"stone": stone_icon,
-		"fiber": fiber_icon,
-		"auto_waterer": auto_waterer_icon,
-	}
+	icon_by_id = InventoryItemIcons.build_icon_map()
 
 	panel.visible = false
 	hotbar.visible = false

@@ -16,6 +16,7 @@ var machine_placement_active: bool = false
 
 func _ready() -> void:
 	placement_preview.visible = false
+	placement_preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
 
 func _process(_delta: float) -> void:

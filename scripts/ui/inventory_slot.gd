@@ -8,6 +8,12 @@ signal slot_pressed(item_id: String)
 var _item_id: String = ""
 
 
+func _ready() -> void:
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+
 func set_slot(tex: Texture2D, amount: int, item_id: String = "") -> void:
 	_item_id = item_id
 	# Keep the slot box itself visible at all times

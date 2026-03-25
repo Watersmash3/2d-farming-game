@@ -22,7 +22,11 @@
 [ext_resource type="PackedScene" uid="uid://c5bmrrofo1kto" path="res://scenes/animals/Male_Cow.tscn" id="20_juaju"]
 [ext_resource type="PackedScene" uid="uid://c0622m6b2d0ox" path="res://scenes/ui/InventoryUI.tscn" id="21_invui"]
 [ext_resource type="PackedScene" uid="uid://b8craftmenu01" path="res://scenes/ui/CraftingMenu.tscn" id="22_craft"]
-[ext_resource type="Texture2D" uid="uid://cn75eenio5v1n" path="res://assets/tilesets/chest.png" id="23_chest"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/Water props.png" id="23_waterprops"]
+
+[sub_resource type="AtlasTexture" id="SubResource_placement_water"]
+atlas = ExtResource("23_waterprops")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yr1n6"]
 texture = ExtResource("1_qxiha")
@@ -472,8 +476,7 @@ spawn_area_size = Vector2(400, 380)
 visible = false
 modulate = Color(0.35, 1, 0.45, 0.72)
 z_index = 100
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("23_chest")
+texture = SubResource("SubResource_placement_water")
 
 [node name="InventoryUi" parent="." unique_id=689671264 instance=ExtResource("21_invui")]
 
