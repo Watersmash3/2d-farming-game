@@ -1,5 +1,12 @@
 extends CharacterBody2D
 @export var speed := 180.0
+@export var sprint_multiplier := 2.0
+@export var max_stamina := 100.0
+#Values per second 
+@export var stamina_drain := 20.0   
+@export var stamina_regen := 10.0   
+#Value in seconds
+@export var stamina_regen_delay := 1.0 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var footsteps: Array[AudioStreamPlayer2D] = [
 	$FootstepA, $FootstepB, $FootstepC, $FootstepD
@@ -10,22 +17,39 @@ extends CharacterBody2D
 
 var last_dir: Vector2 = Vector2.DOWN
 var is_swinging: bool = false
+var is_sprinting: bool = false
 var facing_dir: Vector2 = Vector2.DOWN
 var _last_footstep_index := -1
 var _last_till_index := -1
 var _footstep_cooldown := 0.0
+var stamina: float = max_stamina
+var _stamina_regen_timer := 0.0
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	_footstep_cooldown -= _delta
-	
+	_footstep_cooldown -= delta
+
 	if Input.is_action_just_pressed("interact") and not is_swinging:
 		is_swinging = true
+
+	is_sprinting = Input.is_action_pressed("ui_sprint") and input_dir.length() > 0.1 and stamina > 0.0
+
+	if is_sprinting:
+		stamina = max(0.0, stamina - stamina_drain * delta)
+		_stamina_regen_timer = stamina_regen_delay
+	else:
+		if _stamina_regen_timer > 0.0:
+			_stamina_regen_timer -= delta
+		else:
+			stamina = min(max_stamina, stamina + stamina_regen * delta)
+
 	if is_swinging:
 		velocity = Vector2.ZERO
+	elif is_sprinting:
+		velocity = input_dir * speed * sprint_multiplier
 	else:
 		velocity = input_dir * speed
-		
+
 	move_and_slide()
 	if input_dir.length() > 0.1:
 		last_dir = input_dir.normalized()
@@ -39,7 +63,7 @@ func _update_animation(input_dir: Vector2) -> void:
 	else:
 		dir = last_dir
 	var is_diag: bool = abs(dir.x) > 0.4 and abs(dir.y) > 0.4
-	
+
 	var want_flip_h := false
 	var anim := ""
 	var up: bool = dir.y < -0.1
@@ -55,6 +79,19 @@ func _update_animation(input_dir: Vector2) -> void:
 		else:
 			anim = "hoe_swing"
 			want_flip_h = dir.x < 0
+	elif is_sprinting:
+		if is_diag:
+			anim = "sprint"
+			want_flip_h = dir.x < 0
+		elif up:
+			anim = "sprint_up"
+		elif down:
+			anim = "sprint_down"
+		elif right:
+			anim = "sprint"
+		elif left:
+			anim = "sprint"
+			want_flip_h = true
 	elif is_diag:
 		if moving:
 			anim = "walk_angle"
@@ -75,7 +112,7 @@ func _update_animation(input_dir: Vector2) -> void:
 		elif right:
 			if moving:
 				anim = "walk_angle"
-			else: 
+			else:
 				anim = "idle_angle"
 		elif left:
 			want_flip_h = true
@@ -91,33 +128,31 @@ func _update_animation(input_dir: Vector2) -> void:
 func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
 	sprite.frame_changed.connect(_on_frame_changed)
-
-	# One potato_seed stack only; more come from harvest. TODO: new-game / difficulty presets.
 	InventoryState.add_item("potato_seed", 10)
-	# TODO: starter bundles should come from game config / new-game flow, not the player node.
 	InventoryState.add_item("wood", 24)
 	InventoryState.add_item("stone", 12)
 	InventoryState.add_item("fiber", 6)
 
 func _on_frame_changed() -> void:
 	var walk_anims := ["walk_up", "walk_down", "walk_angle"]
-
-	if sprite.animation not in walk_anims:
+	var sprint_anims := ["sprint_up", "sprint_down", "sprint"]
+	if sprite.animation not in walk_anims and sprite.animation not in sprint_anims:
 		return
 	if _footstep_cooldown <= 0.0:
 		_play_random_footstep()
-		_footstep_cooldown = 0.5
-	
+		if sprite.animation in sprint_anims:
+			_footstep_cooldown = 0.55
+		else:
+			_footstep_cooldown = 0.5
 
 func _play_random_footstep() -> void:
 	var index := randi() % footsteps.size()
-	# Re-roll once if we got the same clip as last time
 	if index == _last_footstep_index:
 		index = (index + 1) % footsteps.size()
 	_last_footstep_index = index
 	footsteps[index].pitch_scale = randf_range(0.9, 1.1)
 	footsteps[index].play()
-	
+
 func _play_random_till() -> void:
 	var index := randi() % tills.size()
 	if index == _last_till_index:
@@ -125,7 +160,7 @@ func _play_random_till() -> void:
 	_last_till_index = index
 	tills[index].pitch_scale = randf_range(0.9, 1.1)
 	tills[index].play()
-		
+
 func _on_animation_finished() -> void:
 	if sprite.animation in ["hoe_swing", "hoe_swing_back", "hoe_swing_front"]:
 		_play_random_till()
