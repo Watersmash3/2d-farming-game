@@ -1,3 +1,5 @@
+# Claude AI used throughout this file as tool to help 
+# with cleaning, organization, and optimization of basic functions. 
 extends CharacterBody2D
 @export var speed := 180.0
 @export var sprint_multiplier := 2.0
@@ -29,8 +31,12 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	_footstep_cooldown -= delta
 
-	if Input.is_action_just_pressed("interact") and not is_swinging:
-		is_swinging = true
+	if Input.is_action_just_pressed("interact"):
+		if stamina > 0.0 and stamina > 0.35:
+			is_swinging = true
+			stamina = max(0.0, stamina - 0.35)
+			_stamina_regen_timer = stamina_regen_delay
+		
 
 	is_sprinting = Input.is_action_pressed("ui_sprint") and input_dir.length() > 0.1 and stamina > 0.0
 
@@ -43,8 +49,14 @@ func _physics_process(delta: float) -> void:
 		else:
 			stamina = min(max_stamina, stamina + stamina_regen * delta)
 
-	if is_swinging:
+	if is_swinging and stamina >= 0:
 		velocity = Vector2.ZERO
+		stamina = max(0.0, stamina - 0.35)
+		if stamina <= 0:
+			is_swinging = false
+		_stamina_regen_timer = stamina_regen_delay
+		
+
 	elif is_sprinting:
 		velocity = input_dir * speed * sprint_multiplier
 	else:
