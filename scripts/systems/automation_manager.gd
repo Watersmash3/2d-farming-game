@@ -38,6 +38,12 @@ func unregister_machine(machine: AutomationMachine) -> void:
 func has_machine_at(cell: Vector2i) -> bool:
 	return _occupied_cells.has(cell)
 
+## Returns the machine at the given cell, or null if none.
+func get_machine_at(cell: Vector2i) -> AutomationMachine:
+	if not _occupied_cells.has(cell):
+		return null
+	return _occupied_cells[cell] as AutomationMachine
+
 
 func can_place_machine_at(cell: Vector2i, farming: FarmingSystem) -> bool:
 	if farming == null:

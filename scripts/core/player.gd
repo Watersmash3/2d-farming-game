@@ -140,7 +140,14 @@ func _update_animation(input_dir: Vector2) -> void:
 func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
 	sprite.frame_changed.connect(_on_frame_changed)
+
+	# Starter seeds — more come from harvest. TODO: move to new-game / difficulty config.
 	InventoryState.add_item("potato_seed", 10)
+	InventoryState.add_item("carrot_seed", 5)
+	InventoryState.add_item("strawberry_seed", 5)
+	InventoryState.add_item("tomato_seed", 5)
+	InventoryState.add_item("corn_seed", 5)
+	# TODO: starter bundles should come from game config / new-game flow, not the player node.
 	InventoryState.add_item("wood", 24)
 	InventoryState.add_item("stone", 12)
 	InventoryState.add_item("fiber", 6)

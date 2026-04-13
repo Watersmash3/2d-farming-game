@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://auto_tiller01"]
+
+[ext_resource type="Script" path="res://scripts/automation/auto_tiller.gd" id="1_at"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/Tileset Spring.png" id="2_spring"]
+
+[sub_resource type="AtlasTexture" id="Atlas_tiller_pad"]
+atlas = ExtResource("2_spring")
+region = Rect2(0, 16, 16, 16)
+
+[node name="AutoTiller" type="Node2D"]
+script = ExtResource("1_at")
+
+[node name="VisualRoot" type="Node2D" parent="."]
+modulate = Color(0.8, 0.6, 0.3, 1.0)
+
+[node name="Pad" type="Sprite2D" parent="VisualRoot"]
+texture = SubResource("Atlas_tiller_pad")

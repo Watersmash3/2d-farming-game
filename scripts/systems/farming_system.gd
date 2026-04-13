@@ -19,22 +19,53 @@ const ATLAS_WATERED := Vector2i(1, 0) # correlating to the base tiles grid
 # Will be used in the future
 const ATLAS_DIRT := Vector2i(2, 0) # correlating to the base tiles grid
 
-# --- Crop visuals: stage textures
-@export var potato_stage_textures: Array[Texture2D] = []
+# --- Crop visuals: assign one CropSpriteSheet resource per crop in the Inspector.
+# Each resource holds the PNG + frame_width + frame_height. Frames are sliced at runtime.
+@export var potato_sheet:     CropSpriteSheet
+@export var carrot_sheet:     CropSpriteSheet
+@export var strawberry_sheet: CropSpriteSheet
+@export var tomato_sheet:     CropSpriteSheet
+@export var corn_sheet:       CropSpriteSheet
+
+# Built in _ready() — maps crop_id -> CropSpriteSheet
+var _sheets: Dictionary = {}
 
 # --- Crop definitions
 var crop_defs := {
 	"potato": {
 		"growth_days": 6,
 		"stages": 7,
-		# Seeds granted when harvesting a mature crop (same id as SEED_ITEM_BY_CROP).
 		"seeds_returned_on_harvest": 2,
-	}
+	},
+	"carrot": {
+		"growth_days": 4,
+		"stages": 5,
+		"seeds_returned_on_harvest": 1,
+	},
+	"strawberry": {
+		"growth_days": 8,
+		"stages": 6,
+		"seeds_returned_on_harvest": 2,
+	},
+	"tomato": {
+		"growth_days": 6,
+		"stages": 6,
+		"seeds_returned_on_harvest": 1,
+	},
+	"corn": {
+		"growth_days": 10,
+		"stages": 7,
+		"seeds_returned_on_harvest": 1,
+	},
 }
 
 ## crop_id -> inventory item id consumed when planting (one per plant).
 const SEED_ITEM_BY_CROP: Dictionary = {
-	"potato": "potato_seed",
+	"potato":     "potato_seed",
+	"carrot":     "carrot_seed",
+	"strawberry": "strawberry_seed",
+	"tomato":     "tomato_seed",
+	"corn":       "corn_seed",
 }
 
 # --- Farm state (runtime)
@@ -55,8 +86,16 @@ func _ready() -> void:
 	assert(crops_layer != null, "FarmingSystem: crops_layer_path is not set or invalid.")
 	TimeSystem.day_advanced.connect(_on_day_advanced)
 
-	if potato_stage_textures.size() == 0:
-		push_warning("No potato_stage_textures set. Crop will not render stages.")
+	_sheets = {
+		"potato":     potato_sheet,
+		"carrot":     carrot_sheet,
+		"strawberry": strawberry_sheet,
+		"tomato":     tomato_sheet,
+		"corn":       corn_sheet,
+	}
+
+	if potato_sheet == null:
+		push_warning("FarmingSystem: potato_sheet is not set. Crops will not render.")
 
 func till(cell: Vector2i) -> void:
 	var d := _get_or_create_cell(cell)
@@ -181,16 +220,24 @@ func _spawn_or_update_crop_sprite(cell: Vector2i) -> void:
 	else:
 		sprite = Sprite2D.new()
 		sprite.centered = true
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		crops_layer.add_child(sprite)
 		crop_sprites[cell] = sprite
 
-	# Position sprite at tile center
+	# Position sprite pivot at tile center
 	sprite.global_position = _cell_to_world_center(cell)
 
 	# Pick stage texture
 	var tex := _get_crop_stage_texture(crop_id, age)
 	if tex != null:
 		sprite.texture = tex
+		# Bottom-anchor: shift the texture up so its bottom sits at the tile's
+		# bottom edge rather than floating at tile center.
+		# offset.y = (tile_h - tex_h) / 2  →  negative when sprite is taller than tile.
+		var tile_h: float = float(farm_map.tile_set.tile_size.y)
+		var sheet: CropSpriteSheet = _sheets.get(crop_id, null) as CropSpriteSheet
+		var tex_h: float = float(sheet._resolved_height()) if sheet != null else float(tex.get_height())
+		sprite.offset = Vector2(0.0, (tile_h - tex_h) / 2.0)
 
 func _remove_crop_sprite(cell: Vector2i) -> void:
 	if not crop_sprites.has(cell):
@@ -223,22 +270,18 @@ func _is_mature(cell: Vector2i) -> bool:
 	return age >= growth_days
 
 func _get_crop_stage_texture(crop_id: String, age: int) -> Texture2D:
-	# For now just handle potato
-	if crop_id != "potato":
+	if not _sheets.has(crop_id):
+		return null
+	var sheet: CropSpriteSheet = _sheets[crop_id] as CropSpriteSheet
+	if sheet == null:
+		return null
+	if not crop_defs.has(crop_id):
 		return null
 
-	if potato_stage_textures.size() == 0:
-		return null
-
-	var growth_days: int = int(crop_defs[crop_id]["growth_days"])
 	var stages: int = int(crop_defs[crop_id]["stages"])
-
-	# Map age -> stage index [0..stages-1]
-	# age 0 => stage 0, mature => last stage
-	var stage_index := mini(age, stages - 1)
-
-	stage_index = clamp(stage_index, 0, min(stages - 1, potato_stage_textures.size() - 1))
-	return potato_stage_textures[stage_index]
+	var total_frames: int = sheet.frame_count()
+	var stage_index: int = clamp(mini(age, stages - 1), 0, total_frames - 1)
+	return sheet.get_frame(stage_index)
 
 func get_cell_world_center(cell: Vector2i) -> Vector2:
 	return _cell_to_world_center(cell)
@@ -247,6 +290,22 @@ func get_cell_world_center(cell: Vector2i) -> Vector2:
 ## Tilled farm tile with no crop; used for machine anchors.
 func is_valid_machine_cell(cell: Vector2i) -> bool:
 	return _is_tilled(cell) and not _has_crop(cell)
+
+## Public read of tilled state; used by automation machines.
+func is_cell_tilled(cell: Vector2i) -> bool:
+	return _is_tilled(cell)
+
+## Public read of crop presence; used by automation machines.
+func cell_has_crop(cell: Vector2i) -> bool:
+	return _has_crop(cell)
+
+## Public read of crop maturity; used by AutoHarvester.
+func is_cell_mature(cell: Vector2i) -> bool:
+	return _is_mature(cell)
+
+## Public read of watered state; used by AutoSeeder.
+func is_cell_watered(cell: Vector2i) -> bool:
+	return farm_cells.has(cell) and farm_cells[cell].get("watered", false) == true
 
 
 func _cell_to_world_center(cell: Vector2i) -> Vector2:
