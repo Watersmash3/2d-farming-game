@@ -2,6 +2,23 @@
 
 [ext_resource type="Script" uid="uid://pwajfm5ahb08" path="res://scripts/ui/inventory_slot.gd" id="1_kscix"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kscix"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="InventorySlot" type="PanelContainer" unique_id=1554263431]
 custom_minimum_size = Vector2(64, 64)
 script = ExtResource("1_kscix")
@@ -14,3 +31,7 @@ layout_mode = 2
 layout_mode = 2
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="SelectedOutline" type="Panel" parent="." unique_id=1438715292]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kscix")
