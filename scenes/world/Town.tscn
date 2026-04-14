@@ -2418,8 +2418,6 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_u0bin")
 sources/0 = SubResource("TileSetAtlasSource_qprq0")
 
-[sub_resource type="TileSet" id="TileSet_lch2g"]
-
 [node name="Town" type="Node2D" unique_id=14324027]
 scale = Vector2(3, 3)
 script = ExtResource("1_0wi7c")
@@ -3304,9 +3302,6 @@ min_distance_between_animals = 100.0
 position = Vector2(896, 816)
 
 [node name="Props" type="Node2D" parent="." unique_id=936124698]
-
-[node name="Farm Objects" type="TileMapLayer" parent="Props" unique_id=701806478]
-tile_set = SubResource("TileSet_lch2g")
 
 [node name="InventoryUi" parent="." unique_id=288281950 instance=ExtResource("19_ms7pb")]
 
