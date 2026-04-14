@@ -35,6 +35,9 @@
 [ext_resource type="Texture2D" uid="uid://c2ithdege4go2" path="res://assets/sprites/potato/Spring Crops_0006.png" id="28_pmpql"]
 [ext_resource type="Texture2D" uid="uid://dbex5y3ouc2ri" path="res://assets/sprites/potato/Spring Crops_0007.png" id="29_qa1ps"]
 [ext_resource type="Texture2D" uid="uid://cn75eenio5v1n" path="res://assets/tilesets/chest.png" id="35_kfxtt"]
+[ext_resource type="Texture2D" uid="uid://c5vsoamdouo3j" path="res://assets/ui/empty_stamina.png" id="36_qa1ps"]
+[ext_resource type="Script" uid="uid://dvpm41ifyght" path="res://scripts/ui/stamina_bar.gd" id="37_gra7h"]
+[ext_resource type="Texture2D" uid="uid://duv188p5bo42e" path="res://assets/ui/full_stamina.png" id="37_u0bin"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ddrt"]
 texture = ExtResource("1_th6bu")
@@ -2466,3 +2469,17 @@ texture = ExtResource("35_kfxtt")
 
 [node name="Machines" type="Node2D" parent="." unique_id=223417954]
 scale = Vector2(0.11666667, 0.11666667)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=817740009]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1066156428]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+offset_right = 104.0
+grow_vertical = 0
+fill_mode = 5
+texture_under = ExtResource("36_qa1ps")
+texture_progress = ExtResource("37_u0bin")
+script = ExtResource("37_gra7h")
