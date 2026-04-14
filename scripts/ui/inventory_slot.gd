@@ -33,7 +33,7 @@ func set_slot(slot_index: int, tex: Texture2D, amount: int, item_id: String = ""
 	_count = amount
 	visible = true
 
-	if tex == null or amount <= 0 or item_id == "":
+	if amount <= 0 or item_id == "":
 		_item_id = ""
 		_count = 0
 		icon.visible = false
@@ -44,7 +44,7 @@ func set_slot(slot_index: int, tex: Texture2D, amount: int, item_id: String = ""
 		_update_visual()
 		return
 
-	icon.visible = true
+	icon.visible = tex != null
 	count.visible = true
 	icon.texture = tex
 	count.text = "x%d" % amount

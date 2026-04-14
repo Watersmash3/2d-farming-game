@@ -67,7 +67,7 @@ func has_item(item_id: String, amount: int = 1) -> bool:
 
 
 func can_add(item_id: String, amount: int = 1) -> bool:
-	if amount <= 0:
+	if item_id == "" or amount <= 0:
 		return false
 
 	# Can add if item already exists in any slot or if any empty slot exists.
@@ -81,7 +81,7 @@ func can_add(item_id: String, amount: int = 1) -> bool:
 
 
 func add_item(item_id: String, amount: int = 1) -> bool:
-	if amount <= 0:
+	if item_id == "" or amount <= 0:
 		return false
 
 	_ensure_slots()
