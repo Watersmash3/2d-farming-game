@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://c0622m6b2d0ox"]
 
 [ext_resource type="PackedScene" uid="uid://buw3swc64fsfw" path="res://scenes/ui/inventory_slot.tscn" id="1_p0ay3"]
-[ext_resource type="Script" path="res://scripts/ui/inventory_ui.gd" id="2_invui"]
+[ext_resource type="Script" uid="uid://cwgfbe34mc8w1" path="res://scripts/ui/inventory_ui.gd" id="2_invui"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jywan"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="InventoryUi" type="Node2D" unique_id=288281950]
 script = ExtResource("2_invui")
@@ -10,54 +13,149 @@ script = ExtResource("2_invui")
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=246780240]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control" unique_id=397382656]
+[node name="BottomBarArea" type="Control" parent="CanvasLayer/Control" unique_id=159796979]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -190.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/BottomBarArea" unique_id=1144767869]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HotBar" type="HBoxContainer" parent="CanvasLayer/Control/BottomBarArea/CenterContainer" unique_id=1490842895]
+layout_mode = 2
+
+[node name="InventorySlot" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=1287065773 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=251187703 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=225317488 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=337160480 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=1298854840 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=1845168073 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=957805787 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=321567519 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/BottomBarArea" unique_id=397382656]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 130.0
+offset_right = 576.0
+offset_bottom = 130.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jywan")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/BottomBarArea/Panel" unique_id=586203552]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Panel" unique_id=586203552]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Title" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer" unique_id=364789528]
+[node name="Title" type="Label" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer" unique_id=364789528]
 layout_mode = 2
 
-[node name="Grid" type="GridContainer" parent="CanvasLayer/Control/Panel/VBoxContainer" unique_id=333257935]
+[node name="Grid" type="GridContainer" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer" unique_id=333257935]
+layout_mode = 2
+columns = 8
+
+[node name="InventorySlot" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1554263431 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="HintLabel" type="Label" parent="CanvasLayer/Control/Panel/VBoxContainer" unique_id=446728589]
+[node name="InventorySlot2" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=989939225 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="HotBar" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=1490842895]
-layout_mode = 0
-offset_right = 540.0
-offset_bottom = 64.0
-
-[node name="InventorySlot" parent="CanvasLayer/Control/HotBar" unique_id=1287065773 instance=ExtResource("1_p0ay3")]
+[node name="InventorySlot3" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1345838045 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="InventorySlot2" parent="CanvasLayer/Control/HotBar" unique_id=251187703 instance=ExtResource("1_p0ay3")]
+[node name="InventorySlot4" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1745473154 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="InventorySlot3" parent="CanvasLayer/Control/HotBar" unique_id=225317488 instance=ExtResource("1_p0ay3")]
+[node name="InventorySlot5" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1126715664 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="InventorySlot4" parent="CanvasLayer/Control/HotBar" unique_id=337160480 instance=ExtResource("1_p0ay3")]
+[node name="InventorySlot6" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1914463291 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="InventorySlot5" parent="CanvasLayer/Control/HotBar" unique_id=1298854840 instance=ExtResource("1_p0ay3")]
+[node name="InventorySlot7" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=2064441824 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="InventorySlot6" parent="CanvasLayer/Control/HotBar" unique_id=1845168073 instance=ExtResource("1_p0ay3")]
+[node name="InventorySlot8" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1185196358 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="InventorySlot7" parent="CanvasLayer/Control/HotBar" unique_id=957805787 instance=ExtResource("1_p0ay3")]
+[node name="InventorySlot9" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=652764542 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
 
-[node name="InventorySlot8" parent="CanvasLayer/Control/HotBar" unique_id=321567519 instance=ExtResource("1_p0ay3")]
+[node name="InventorySlot10" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1663874861 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=419359755 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=754764199 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=2053211932 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=896342228 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1965049564 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=254744226 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot17" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=2124616728 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot18" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=551650598 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot19" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=54574358 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot20" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1750771475 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot21" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1844209720 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot22" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1518129125 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot23" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=2116595658 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="InventorySlot24" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=530673186 instance=ExtResource("1_p0ay3")]
+layout_mode = 2
+
+[node name="HintLabel" type="Label" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer" unique_id=446728589]
 layout_mode = 2
