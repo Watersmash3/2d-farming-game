@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cnfb1fu5cfwe5"]
+
+[ext_resource type="Texture2D" uid="uid://wx3eumf405gg" path="res://assets/sprites/objects/Deluxe Mill.png" id="1_p8x2x"]
+[ext_resource type="Texture2D" uid="uid://diilvms1jmpoq" path="res://assets/sprites/objects/Windmill Fan.png" id="2_5f78d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5f78d"]
+atlas = ExtResource("1_p8x2x")
+region = Rect2(96, 48, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg06i"]
+atlas = ExtResource("1_p8x2x")
+region = Rect2(80, 128, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4idej"]
+atlas = ExtResource("1_p8x2x")
+region = Rect2(112, 112, 16, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ewhj"]
+atlas = ExtResource("1_p8x2x")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5ppk"]
+atlas = ExtResource("2_5f78d")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gb1m6"]
+atlas = ExtResource("2_5f78d")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_de0x0"]
+atlas = ExtResource("2_5f78d")
+region = Rect2(160, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvqla"]
+atlas = ExtResource("2_5f78d")
+region = Rect2(240, 0, 80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t5ppk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5ppk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gb1m6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_de0x0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvqla")
+}],
+"loop": true,
+"name": &"mill",
+"speed": 5.0
+}]
+
+[node name="Windmill" type="Node2D" unique_id=1647128449]
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1470460436]
+texture = SubResource("AtlasTexture_5f78d")
+
+[node name="Door" type="Sprite2D" parent="." unique_id=1422701473]
+position = Vector2(0, 16)
+texture = SubResource("AtlasTexture_kg06i")
+
+[node name="Windows" type="Sprite2D" parent="." unique_id=1068775968]
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_4idej")
+
+[node name="Top" type="Sprite2D" parent="." unique_id=521975934]
+position = Vector2(0, -40)
+texture = SubResource("AtlasTexture_2ewhj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1448385194]
+z_index = 10
+position = Vector2(0, -40)
+sprite_frames = SubResource("SpriteFrames_t5ppk")
+animation = &"mill"
+autoplay = "mill"
+frame_progress = 0.6434207
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=139947012]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=136433314]
+visible = false
+polygon = PackedVector2Array(-19, 12, -11, 21, 11, 21, 21, 12, 21, -31, 24, -33, 24, -40, 7, -57, -7, -57, -24, -40, -24, -32, -22, -31, -22, 11)

@@ -6,8 +6,20 @@
 atlas = ExtResource("1_kwwwx")
 region = Rect2(64, 0, 32, 48)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kwwwx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7t5kd"]
+size = Vector2(10, 8)
+
 [node name="Tree1" type="Node2D" unique_id=2096252048]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=97732114]
 position = Vector2(16, -16)
 texture = SubResource("AtlasTexture_7t5kd")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1195424555]
+physics_material_override = SubResource("PhysicsMaterial_kwwwx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1479232420]
+position = Vector2(16, 4)
+shape = SubResource("RectangleShape2D_7t5kd")

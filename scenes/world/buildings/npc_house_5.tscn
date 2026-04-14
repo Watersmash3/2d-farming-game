@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://84sb827dqxgx"]
+
+[ext_resource type="Texture2D" uid="uid://cheqmnmhck647" path="res://assets/sprites/objects/Base houses.png" id="1_xcmch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rkns"]
+atlas = ExtResource("1_xcmch")
+region = Rect2(544, 64, 128, 112)
+
+[node name="NPC House 5" type="Node2D" unique_id=503074720]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=512335685]
+position = Vector2(64, -56)
+texture = SubResource("AtlasTexture_3rkns")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1971303585]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1548456007]
+visible = false
+polygon = PackedVector2Array(17, -18, 17, -31, 32, -31, 32, -18, 92, -17, 92, -23, 108, -23, 108, -100, 0, -100, 0, -17)

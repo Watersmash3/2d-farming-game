@@ -11,3 +11,9 @@ region = Rect2(288, 176, 240, 160)
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1164707656]
 position = Vector2(120, -80)
 texture = SubResource("AtlasTexture_2pje5")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=749213081]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1164269422]
+visible = false
+polygon = PackedVector2Array(-4, -15, -4, -124, 29, -156, 50, -156, 86, -118, 155, -117, 191, -156, 209, -156, 249, -115, 249, -15, 215, -16, 215, -28, 187, -28, 187, -16, 160, -16, 160, -32, 80, -32, 80, -15, 54, -15, 54, -26, 28, -27, 27, -15)

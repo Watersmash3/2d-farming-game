@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://hckpyo8hn1sp"]
+
+[ext_resource type="Texture2D" uid="uid://rijpkgdydtva" path="res://assets/sprites/objects/Player House.png" id="1_js078"]
+[ext_resource type="Texture2D" uid="uid://djhostjbk0ljy" path="res://assets/sprites/objects/Smoke.png" id="2_51dkw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51dkw"]
+atlas = ExtResource("1_js078")
+region = Rect2(208, 16, 176, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5j8l2"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tjf6"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7jvi"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6723l"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_er46q"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj4ao"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(160, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_baldr"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(192, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ph5b0"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(224, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv7dg"]
+atlas = ExtResource("2_51dkw")
+region = Rect2(256, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_51dkw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5j8l2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tjf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7jvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_er46q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj4ao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_baldr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ph5b0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv7dg")
+}],
+"loop": true,
+"name": &"smoke",
+"speed": 5.0
+}]
+
+[node name="PlayerHouse" type="Node2D" unique_id=1593683387]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=45123578]
+texture = SubResource("AtlasTexture_51dkw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=605765543]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=542007006]
+visible = false
+polygon = PackedVector2Array(7, 68, 34, 68, 34, 57, 38, 57, 38, 40, 68, 39, 68, 20, 89, 20, 89, 10, 85, 10, 85, -30, 89, -30, 89, -45, 80, -53, 64, -53, 58, -48, 8, -98, -6, -98, -32, -72, -73, -72, -73, -7, -87, 1, -87, 25, -66, 25, -66, 40, -38, 40, -38, 58, -33, 59, -33, 68, -8, 68, -8, 66, 7, 66)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=472037283]
+position = Vector2(72, -76)
+sprite_frames = SubResource("SpriteFrames_51dkw")
+animation = &"smoke"
+autoplay = "smoke"
+frame_progress = 0.8332733

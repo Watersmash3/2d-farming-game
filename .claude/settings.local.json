@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(sort -u comm -23 /tmp/used_refs.txt /tmp/declared_refs.txt)"
     ]
   }
 }

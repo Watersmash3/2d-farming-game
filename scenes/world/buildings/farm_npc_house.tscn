@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bpl7375oad0h6"]
+
+[ext_resource type="Texture2D" uid="uid://cheqmnmhck647" path="res://assets/sprites/objects/Base houses.png" id="1_haapl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3wtm"]
+atlas = ExtResource("1_haapl")
+region = Rect2(16, 48, 176, 128)
+
+[node name="Farm NPC House" type="Node2D" unique_id=1497158121]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=969917591]
+position = Vector2(88, -64)
+texture = SubResource("AtlasTexture_y3wtm")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=269472222]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=822595168]
+visible = false
+polygon = PackedVector2Array(-4, -129, 113, -129, 113, -99, 179, -99, 179, -31, 159, -32, 159, -48, 145, -48, 145, -32, 111, -32, 111, -15, 47, -15, 47, -30, 33, -30, 33, -15, -2, -15)
