@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://4ysnj7e5qq8f" path="res://assets/music/ES_A Green Embrace - Rand Aldo.mp3" id="1_0rulj"]
 
-[node name="BackgroundMusic" type="AudioStreamPlayer2D" unique_id=1248224555]
+[node name="BackgroundMusic" type="AudioStreamPlayer" unique_id=1523816881]
 stream = ExtResource("1_0rulj")
 autoplay = true
 bus = &"Music"
