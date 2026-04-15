@@ -6,7 +6,7 @@ extends Node2D
 @export var spawn_chickens: int = 3
 @export var spawn_cows: int = 3
 
-# World area to spawn in
+# Spawn area relative to this spawner node
 @export var spawn_area_position: Vector2 = Vector2(16, 16)
 @export var spawn_area_size: Vector2 = Vector2(320, 320)
 
@@ -52,12 +52,13 @@ func _spawn_one(scene: PackedScene) -> void:
 
 func _find_spawn_position() -> Vector2:
 	var tries := 30
+	var area_origin := global_position + spawn_area_position
 
 	while tries > 0:
 		tries -= 1
 		var p := Vector2(
-			randf_range(spawn_area_position.x, spawn_area_position.x + spawn_area_size.x),
-			randf_range(spawn_area_position.y, spawn_area_position.y + spawn_area_size.y)
+			randf_range(area_origin.x, area_origin.x + spawn_area_size.x),
+			randf_range(area_origin.y, area_origin.y + spawn_area_size.y)
 		)
 
 		var too_close := false
@@ -71,6 +72,6 @@ func _find_spawn_position() -> Vector2:
 			return p
 
 	# Fallback if crowded
-	var fallback := spawn_area_position + spawn_area_size * 0.5
+	var fallback := area_origin + spawn_area_size * 0.5
 	_spawned_positions.append(fallback)
 	return fallback

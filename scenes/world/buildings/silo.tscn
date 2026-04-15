@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cx35hsj5e1lhj"]
+
+[ext_resource type="Texture2D" uid="uid://dcrsel8ls5rut" path="res://assets/sprites/objects/Deluxe Silo.png" id="1_uvyep"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxmkl"]
+atlas = ExtResource("1_uvyep")
+region = Rect2(0, 0, 80, 96)
+
+[node name="Silo" type="Node2D" unique_id=1136173760]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=697196085]
+texture = SubResource("AtlasTexture_bxmkl")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1109446494]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1976263555]
+visible = false
+polygon = PackedVector2Array(3, 30, 32, 30, 32, -9, 22, -17, 6, -17, 6, -29, 3, -32, -1, -36, -6, -39, -10, -40, -13, -44, -18, -44, -21, -40, -28, -37, -32, -35, -35, -31, -38, -27, -38, 33, -35, 36, -32, 37, -30, 38, -25, 41, -20, 41, -13, 41, -8, 39, -4, 38, 0, 35, 3, 31)

@@ -30,7 +30,7 @@ region = Rect2(48, 0, 16, 16)
 [sub_resource type="SpriteFrames" id="SpriteFrames_p1xj4"]
 animations = [{
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -66,8 +66,15 @@ ambient_sounds = Array[AudioStream]([ExtResource("2_tg8q3"), ExtResource("3_p1xj
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1404198788]
 sprite_frames = SubResource("SpriteFrames_p1xj4")
+animation = &"walk_side"
 autoplay = "walk_side"
 
 [node name="AmbientPlayer" type="AudioStreamPlayer2D" parent="." unique_id=717278007]
 max_distance = 500.0
 bus = &"Animal Ambience"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=434714622]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D" unique_id=1066427534]
+visible = false
+polygon = PackedVector2Array(-4, 7, 4, 7, 8, 3, 8, -3, 2, -8, -4, -8, -8, -3, -8, 4)

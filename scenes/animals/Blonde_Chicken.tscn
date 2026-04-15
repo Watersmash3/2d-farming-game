@@ -71,6 +71,10 @@ autoplay = "walk_side"
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1721522061]
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D" unique_id=577332320]
+visible = false
+polygon = PackedVector2Array(-5, 7, 4, 7, 7, 4, 7, -4, 1, -8, -4, -8, -8, -3, -8, 3)
+
 [node name="AmbientPlayer" type="AudioStreamPlayer2D" parent="." unique_id=501963924]
 max_distance = 500.0
 bus = &"Animal Ambience"
