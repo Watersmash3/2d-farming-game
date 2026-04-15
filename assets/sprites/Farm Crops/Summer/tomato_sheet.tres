@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CropSpriteSheet" format=3 uid="uid://cyo0sbmldi4l5"]
+
+[ext_resource type="Script" uid="uid://bb6d7ik4wsiqx" path="res://scripts/data/crop_sprite_sheet.gd" id="1_0peuj"]
+[ext_resource type="Texture2D" uid="uid://bwwwsqjahjo41" path="res://assets/sprites/Farm Crops/Summer/Tomato.png" id="2_hixrx"]
+
+[resource]
+script = ExtResource("1_0peuj")
+sheet = ExtResource("2_hixrx")
+metadata/_custom_type_script = "uid://bb6d7ik4wsiqx"

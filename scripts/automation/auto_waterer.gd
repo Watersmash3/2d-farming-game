@@ -1,14 +1,7 @@
 extends AutomationMachine
 class_name AutoWaterer
 
-## Waters the four orthogonal neighbors each day (after the farming midnight tick).
-
-const NEIGHBORS: Array[Vector2i] = [
-	Vector2i(1, 0),
-	Vector2i(-1, 0),
-	Vector2i(0, 1),
-	Vector2i(0, -1),
-]
+## Waters neighboring cells each day (range expands with upgrade level).
 
 @onready var _visual: Node2D = $VisualRoot
 
@@ -27,13 +20,13 @@ func _ready() -> void:
 func on_new_day(new_day: int, old_day: int) -> void:
 	if _farming == null:
 		return
+	var targets := get_target_cells()
 	var watered: Array[String] = []
-	for off: Vector2i in NEIGHBORS:
-		var c: Vector2i = grid_cell + off
+	for c: Vector2i in targets:
 		_farming.water(c)
 		watered.append(str(c))
 	if not watered.is_empty():
-		print("[AutoWaterer] Day %d (was %d): watered cells %s" % [new_day, old_day, ", ".join(watered)])
+		print("[AutoWaterer] Day %d (was %d): lvl%d watered %s" % [new_day, old_day, upgrade_level, ", ".join(watered)])
 		if _visual:
 			var tw := create_tween()
 			tw.tween_property(_visual, "modulate", Color(0.4, 0.95, 1.0, 1.0), 0.08)

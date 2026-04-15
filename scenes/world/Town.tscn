@@ -27,17 +27,17 @@
 [ext_resource type="PackedScene" uid="uid://c0622m6b2d0ox" path="res://scenes/ui/InventoryUI.tscn" id="19_ms7pb"]
 [ext_resource type="PackedScene" uid="uid://b8craftmenu01" path="res://scenes/ui/CraftingMenu.tscn" id="20_x3sur"]
 [ext_resource type="Script" uid="uid://csd0epc0x7ebv" path="res://scripts/systems/farming_system.gd" id="22_uc04u"]
-[ext_resource type="Texture2D" uid="uid://dds40gxdiqqhm" path="res://assets/sprites/potato/Spring Crops_0001.png" id="23_2um1c"]
-[ext_resource type="Texture2D" uid="uid://cdajogjxkesjw" path="res://assets/sprites/potato/Spring Crops_0002.png" id="24_nb02v"]
-[ext_resource type="Texture2D" uid="uid://cdun6ohhqrqt3" path="res://assets/sprites/potato/Spring Crops_0003.png" id="25_22vtv"]
-[ext_resource type="Texture2D" uid="uid://bgcqwod1wuo1n" path="res://assets/sprites/potato/Spring Crops_0004.png" id="26_sijte"]
-[ext_resource type="Texture2D" uid="uid://ciimrcv1x73k2" path="res://assets/sprites/potato/Spring Crops_0005.png" id="27_kfxtt"]
-[ext_resource type="Texture2D" uid="uid://c2ithdege4go2" path="res://assets/sprites/potato/Spring Crops_0006.png" id="28_pmpql"]
-[ext_resource type="Texture2D" uid="uid://dbex5y3ouc2ri" path="res://assets/sprites/potato/Spring Crops_0007.png" id="29_qa1ps"]
+[ext_resource type="Resource" uid="uid://bpmuo4gmf16v2" path="res://assets/sprites/Farm Crops/Spring/potato_sheet.tres" id="28_kfxtt"]
+[ext_resource type="Resource" uid="uid://c6k3fqp0oelpa" path="res://assets/sprites/Farm Crops/Spring/carrot_sheet.tres" id="29_pmpql"]
+[ext_resource type="Resource" uid="uid://dm747n1nk7oga" path="res://assets/sprites/Farm Crops/Spring/strawberry_sheet.tres" id="30_qa1ps"]
+[ext_resource type="Resource" uid="uid://cyo0sbmldi4l5" path="res://assets/sprites/Farm Crops/Summer/tomato_sheet.tres" id="31_gra7h"]
+[ext_resource type="Resource" uid="uid://bku4sjpvkbbbe" path="res://assets/sprites/Farm Crops/Summer/corn_sheet.tres" id="32_u0bin"]
 [ext_resource type="Texture2D" uid="uid://cn75eenio5v1n" path="res://assets/tilesets/chest.png" id="35_kfxtt"]
 [ext_resource type="Texture2D" uid="uid://c5vsoamdouo3j" path="res://assets/ui/empty_stamina.png" id="36_qa1ps"]
 [ext_resource type="Script" uid="uid://dvpm41ifyght" path="res://scripts/ui/stamina_bar.gd" id="37_gra7h"]
 [ext_resource type="Texture2D" uid="uid://duv188p5bo42e" path="res://assets/ui/full_stamina.png" id="37_u0bin"]
+[ext_resource type="Script" uid="uid://lt7t61g1y250" path="res://scripts/ui/day_night_tint.gd" id="38_dntnt"]
+[ext_resource type="PackedScene" uid="uid://time_ui_01" path="res://scenes/ui/TimeUI.tscn" id="39_tuiscn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ddrt"]
 texture = ExtResource("1_th6bu")
@@ -2458,7 +2458,11 @@ tile_set = SubResource("TileSet_7atfi")
 script = ExtResource("22_uc04u")
 farm_tilemap_path = NodePath("../Tilemaps/Farm")
 crops_layer_path = NodePath("../Tilemaps/Crops")
-potato_stage_textures = Array[Texture2D]([ExtResource("23_2um1c"), ExtResource("24_nb02v"), ExtResource("25_22vtv"), ExtResource("26_sijte"), ExtResource("27_kfxtt"), ExtResource("28_pmpql"), ExtResource("29_qa1ps")])
+potato_sheet = ExtResource("28_kfxtt")
+carrot_sheet = ExtResource("29_pmpql")
+strawberry_sheet = ExtResource("30_qa1ps")
+tomato_sheet = ExtResource("31_gra7h")
+corn_sheet = ExtResource("32_u0bin")
 
 [node name="PlacementPreview" type="Sprite2D" parent="." unique_id=890843715]
 visible = false
@@ -2483,3 +2487,8 @@ fill_mode = 5
 texture_under = ExtResource("36_qa1ps")
 texture_progress = ExtResource("37_u0bin")
 script = ExtResource("37_gra7h")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1505974186]
+script = ExtResource("38_dntnt")
+
+[node name="TimeUI" parent="." unique_id=1293185790 instance=ExtResource("39_tuiscn")]

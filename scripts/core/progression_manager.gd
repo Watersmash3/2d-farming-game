@@ -4,7 +4,10 @@ extends Node
 
 signal blueprint_unlocked(blueprint_id: String)
 
-const HARVESTS_TO_UNLOCK_AUTO_WATERER: int = 3
+const HARVESTS_TO_UNLOCK_AUTO_WATERER:  int = 3
+const HARVESTS_TO_UNLOCK_AUTO_SEEDER:   int = 10
+const HARVESTS_TO_UNLOCK_AUTO_TILLER:   int = 15
+const HARVESTS_TO_UNLOCK_AUTO_HARVESTER: int = 20
 
 var _blueprints_unlocked: Dictionary = {}  # blueprint_id -> bool
 var _total_harvests: int = 0
@@ -18,7 +21,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		# TODO: remove or gate behind dev build flag for shipping
 		if event.keycode == KEY_F9:
-			unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_WATERER, "debug_key_f9")
+			unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_WATERER,   "debug_key_f9")
+			unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_SEEDER,    "debug_key_f9")
+			unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_HARVESTER, "debug_key_f9")
+			unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_TILLER,    "debug_key_f9")
 
 
 func _connect_farming_harvests() -> void:
@@ -31,6 +37,12 @@ func _on_crop_harvested(_crop_id: String, _cell: Vector2i) -> void:
 	_total_harvests += 1
 	if _total_harvests >= HARVESTS_TO_UNLOCK_AUTO_WATERER:
 		unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_WATERER, "harvest_milestone_%d" % HARVESTS_TO_UNLOCK_AUTO_WATERER)
+	if _total_harvests >= HARVESTS_TO_UNLOCK_AUTO_SEEDER:
+		unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_SEEDER, "harvest_milestone_%d" % HARVESTS_TO_UNLOCK_AUTO_SEEDER)
+	if _total_harvests >= HARVESTS_TO_UNLOCK_AUTO_TILLER:
+		unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_TILLER, "harvest_milestone_%d" % HARVESTS_TO_UNLOCK_AUTO_TILLER)
+	if _total_harvests >= HARVESTS_TO_UNLOCK_AUTO_HARVESTER:
+		unlock_blueprint(CraftingRecipes.BLUEPRINT_AUTO_HARVESTER, "harvest_milestone_%d" % HARVESTS_TO_UNLOCK_AUTO_HARVESTER)
 
 
 func is_blueprint_unlocked(blueprint_id: String) -> bool:

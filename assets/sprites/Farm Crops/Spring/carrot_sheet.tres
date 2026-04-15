@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CropSpriteSheet" format=3 uid="uid://c6k3fqp0oelpa"]
+
+[ext_resource type="Script" uid="uid://bb6d7ik4wsiqx" path="res://scripts/data/crop_sprite_sheet.gd" id="1_x3tqa"]
+[ext_resource type="Texture2D" uid="uid://xhbusl11f131" path="res://assets/sprites/Farm Crops/Spring/Carrot.png" id="2_eihdy"]
+
+[resource]
+script = ExtResource("1_x3tqa")
+sheet = ExtResource("2_eihdy")
+metadata/_custom_type_script = "uid://bb6d7ik4wsiqx"
