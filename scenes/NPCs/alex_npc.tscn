@@ -299,6 +299,11 @@ stream = ExtResource("7_164qy")
 bus = &"SFX"
 
 [node name="Dialogue" parent="." unique_id=975884798 instance=ExtResource("8_5auwk")]
+dialogue_files = Array[String](["res://data/dialogue/alex/alexnpc_introduction.json", "res://data/dialogue/alex/alexnpc_waiting.json", "res://data/dialogue/alex/alexnpc_reward.json", "res://data/dialogue/alex/alexnpc_complete.json"])
+required_item = "carrot"
+required_amount = 3
+reward_item = "stone"
+reward_amount = 5
 
 [connection signal="body_entered" from="chatDetectionArea" to="." method="_on_chat_detection_area_body_entered"]
 [connection signal="body_exited" from="chatDetectionArea" to="." method="_on_chat_detection_area_body_exited"]
