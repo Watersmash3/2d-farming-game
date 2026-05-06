@@ -46,6 +46,8 @@
 [ext_resource type="Script" uid="uid://lt7t61g1y250" path="res://scripts/ui/day_night_tint.gd" id="38_dntnt"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TimeUI.tscn" id="39_tuiscn"]
 [ext_resource type="PackedScene" uid="uid://dlahhqfsa4csy" path="res://scenes/NPCs/alex_npc.tscn" id="46_48hhb"]
+[ext_resource type="PackedScene" uid="uid://bxp6i053fx2xi" path="res://scenes/NPCs/gracie_npc.tscn" id="47_2cdyr"]
+[ext_resource type="PackedScene" uid="uid://odxi4qnshwid" path="res://scenes/NPCs/lyria_npc.tscn" id="48_htqxb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eqivq"]
 
@@ -3342,3 +3344,9 @@ script = ExtResource("38_dntnt")
 
 [node name="AlexNPC" parent="." unique_id=251122582 instance=ExtResource("46_48hhb")]
 position = Vector2(804, 813.3334)
+
+[node name="LyriaNPC" parent="." unique_id=387538201 instance=ExtResource("48_htqxb")]
+position = Vector2(527.6667, 812.6667)
+
+[node name="GracieNPC" parent="." unique_id=1551550735 instance=ExtResource("47_2cdyr")]
+position = Vector2(671.00006, 819.3334)

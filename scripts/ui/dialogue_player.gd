@@ -5,10 +5,9 @@ extends Control
 signal dialogue_finished
 @export var dialogue_files: Array[String] = []
 @export var required_item = ""
-@export var required_amount = 1
+@export var required_amount = 0
 @export var reward_item = ""
-@export var reward_amount = 1
-
+@export var reward_amount = 0
 
 var dialogue = []
 var current_dialogue_id = 0
@@ -23,6 +22,7 @@ var quest_state = QuestState.NOT_STARTED
 
 func _ready():
 	$NinePatchRect.visible = false
+	$NinePatchRect2.visible = false
 	
 func start():
 	if d_active:

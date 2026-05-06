@@ -61,11 +61,11 @@ func _process(delta):
 				dir = choose([Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN])
 			MOVE:
 				move(delta)
-	if Input.is_action_just_pressed("npc_chat"):
+	if Input.is_action_just_pressed("npc_chat") and player_in_chat_zone:
 		$Dialogue.start()
+		$Dialogue/NinePatchRect2.visible = false
 		is_roaming = false
 		is_chatting = true
-		print("CHATTING")
 		anim.play("idle")
 				
 func choose(array):
@@ -90,20 +90,26 @@ func _play_random_footstep() -> void:
 	footsteps[index].play()
 
 func _on_chat_detection_area_body_entered(body: Node2D) -> void:
-	if body.has_method("player"):
+	if body.is_in_group("player"):
 		player = body
 		player_in_chat_zone = true
-
+		if !is_chatting:
+			$Dialogue/NinePatchRect2.visible = true
+		else: 
+			$Dialogue/NinePatchRect2.visible = false
+		
 
 func _on_chat_detection_area_body_exited(body: Node2D) -> void:
-	if body.has_method("player"):
+	if body.is_in_group("player"):
 		player_in_chat_zone = false;
+		$Dialogue/NinePatchRect2.visible = false
+		
 
 func _on_timer_timeout() -> void:
 	$Timer.wait_time = choose([0.5,1,1.5])
 	current_state = choose([IDLE,NEW_DIR, MOVE])
 	
-
+	
 func _on_dialogue_dialogue_finished() -> void:
 	is_chatting = false
 	is_roaming = true

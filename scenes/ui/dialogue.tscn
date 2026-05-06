@@ -38,3 +38,24 @@ offset_right = 292.5714
 offset_bottom = 67.14285
 scale = Vector2(0.35, 0.35)
 text = "Chatting..."
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=2031660953]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -26.0
+offset_right = 7.0
+offset_bottom = -15.0
+texture = ExtResource("1_84wqv")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="E" type="RichTextLabel" parent="NinePatchRect2" unique_id=1737926565]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 18.333332
+offset_bottom = 25.333336
+scale = Vector2(0.3, 0.3)
+text = "E"
