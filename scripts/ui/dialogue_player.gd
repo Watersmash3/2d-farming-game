@@ -8,6 +8,9 @@ signal dialogue_finished
 @export var required_amount = 0
 @export var reward_item = ""
 @export var reward_amount = 0
+@export var quest_name: String = ""
+@export var quest_descr: String = ""
+
 
 var dialogue = []
 var current_dialogue_id = 0
@@ -61,13 +64,18 @@ func _player_has_items() -> bool:
 	return InventoryState.has_item(required_item, required_amount)
 
 func _handle_quest_progression():
+	var quest_log = get_tree().get_first_node_in_group("quest_log")
 	match quest_state:
 		QuestState.NOT_STARTED:
 			quest_state = QuestState.IN_PROGRESS
+			if quest_log:
+				quest_log.add_quest(quest_name, quest_descr)
 		QuestState.IN_PROGRESS:
 			if _player_has_items():
 				_give_reward()
 				quest_state = QuestState.COMPLETE
+				if quest_log:
+					quest_log.remove_quest(quest_name)
 		QuestState.COMPLETE:
 			pass
 
@@ -78,7 +86,7 @@ func _give_reward():
 func _input(event):
 	if !d_active:
 		return
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("progress_chat"):
 		next_script()
 
 func next_script():

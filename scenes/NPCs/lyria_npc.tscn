@@ -233,6 +233,8 @@ required_item = "auto_waterer"
 required_amount = 1
 reward_item = "carrot"
 reward_amount = 15
+quest_name = "Lyria"
+quest_descr = "Build and give Auto-Waterer (Reward: 15 carrots)"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=660558948]
 position = Vector2(0, 1)

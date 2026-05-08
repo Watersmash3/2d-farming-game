@@ -233,6 +233,8 @@ required_item = "carrot"
 required_amount = 3
 reward_item = "stone"
 reward_amount = 5
+quest_name = "Alex"
+quest_descr = "Return with 3 carrots (Reward: 3 stone)"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=660558948]
 position = Vector2(0, 1)

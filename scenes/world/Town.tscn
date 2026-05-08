@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://duv188p5bo42e" path="res://assets/ui/full_stamina.png" id="37_u0bin"]
 [ext_resource type="Script" uid="uid://lt7t61g1y250" path="res://scripts/ui/day_night_tint.gd" id="38_dntnt"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TimeUI.tscn" id="39_tuiscn"]
+[ext_resource type="PackedScene" uid="uid://btalqcqyepdqi" path="res://scenes/ui/quest_log.tscn" id="44_d7twn"]
 [ext_resource type="PackedScene" uid="uid://dlahhqfsa4csy" path="res://scenes/NPCs/alex_npc.tscn" id="46_48hhb"]
 [ext_resource type="PackedScene" uid="uid://bxp6i053fx2xi" path="res://scenes/NPCs/gracie_npc.tscn" id="47_2cdyr"]
 [ext_resource type="PackedScene" uid="uid://odxi4qnshwid" path="res://scenes/NPCs/lyria_npc.tscn" id="48_htqxb"]
@@ -3336,6 +3337,13 @@ fill_mode = 5
 texture_under = ExtResource("36_qa1ps")
 texture_progress = ExtResource("37_u0bin")
 script = ExtResource("37_gra7h")
+
+[node name="QuestLog" parent="CanvasLayer" unique_id=1926499021 groups=["quest_log"] instance=ExtResource("44_d7twn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1505974186]
 script = ExtResource("38_dntnt")

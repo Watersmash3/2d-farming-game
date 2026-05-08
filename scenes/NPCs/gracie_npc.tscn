@@ -237,6 +237,8 @@ required_item = "strawberry"
 required_amount = 2
 reward_item = "fiber"
 reward_amount = 7
+quest_name = "Gracie"
+quest_descr = "Return with 2 strawberries (Reward: 7 fiber)"
 
 [connection signal="body_entered" from="chatDetectionArea" to="." method="_on_chat_detection_area_body_entered"]
 [connection signal="body_exited" from="chatDetectionArea" to="." method="_on_chat_detection_area_body_exited"]
