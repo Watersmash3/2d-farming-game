@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://4wqg34t87k0q"]
+
+[ext_resource type="Script" uid="uid://da8jdmj0fshv5" path="res://scripts/ui/dialogue_player.gd" id="1_65ue4"]
+[ext_resource type="Texture2D" uid="uid://37pywgfx8dx6" path="res://assets/ui/inventory-slot.png" id="1_84wqv"]
+
+[node name="Dialogue" type="Control" unique_id=975884798]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_65ue4")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1923643481]
+layout_mode = 0
+offset_left = -51.0
+offset_top = -47.0
+offset_right = 55.0
+offset_bottom = -14.0
+texture = ExtResource("1_84wqv")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Name" type="RichTextLabel" parent="NinePatchRect" unique_id=610833954]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 65.0
+offset_bottom = 27.0
+scale = Vector2(0.5, 0.5)
+text = "Name:"
+
+[node name="Text" type="RichTextLabel" parent="NinePatchRect" unique_id=1979334128]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 9.999999
+offset_right = 292.5714
+offset_bottom = 67.14285
+scale = Vector2(0.35, 0.35)
+text = "Chatting..."
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=2031660953]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -26.0
+offset_right = 7.0
+offset_bottom = -15.0
+texture = ExtResource("1_84wqv")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="E" type="RichTextLabel" parent="NinePatchRect2" unique_id=1737926565]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 18.333332
+offset_bottom = 25.333336
+scale = Vector2(0.3, 0.3)
+text = "E"

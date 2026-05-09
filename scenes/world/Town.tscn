@@ -29,29 +29,26 @@
 [ext_resource type="PackedScene" uid="uid://cnfb1fu5cfwe5" path="res://scenes/world/buildings/windmill.tscn" id="21_ikdkn"]
 [ext_resource type="PackedScene" uid="uid://bpl7375oad0h6" path="res://scenes/world/buildings/farm_npc_house.tscn" id="22_qa1ps"]
 [ext_resource type="Script" uid="uid://csd0epc0x7ebv" path="res://scripts/systems/farming_system.gd" id="22_uc04u"]
-[ext_resource type="Texture2D" uid="uid://dds40gxdiqqhm" path="res://assets/sprites/potato/Spring Crops_0001.png" id="23_2um1c"]
 [ext_resource type="PackedScene" uid="uid://84sb827dqxgx" path="res://scenes/world/buildings/npc_house_5.tscn" id="23_gra7h"]
 [ext_resource type="PackedScene" uid="uid://hckpyo8hn1sp" path="res://scenes/world/buildings/player_house.tscn" id="23_u0bin"]
 [ext_resource type="Texture2D" uid="uid://c3f0wk1la40s3" path="res://assets/sprites/objects/Fence Wood.png" id="24_gra7h"]
-[ext_resource type="Texture2D" uid="uid://cdajogjxkesjw" path="res://assets/sprites/potato/Spring Crops_0002.png" id="24_nb02v"]
-[ext_resource type="Texture2D" uid="uid://cdun6ohhqrqt3" path="res://assets/sprites/potato/Spring Crops_0003.png" id="25_22vtv"]
-[ext_resource type="Texture2D" uid="uid://bgcqwod1wuo1n" path="res://assets/sprites/potato/Spring Crops_0004.png" id="26_sijte"]
-[ext_resource type="Texture2D" uid="uid://ciimrcv1x73k2" path="res://assets/sprites/potato/Spring Crops_0005.png" id="27_kfxtt"]
-[ext_resource type="Texture2D" uid="uid://c2ithdege4go2" path="res://assets/sprites/potato/Spring Crops_0006.png" id="28_pmpql"]
-[ext_resource type="Texture2D" uid="uid://blueh5vvus14n" path="res://assets/tilesets/bubbles.png" id="29_eqivq"]
-[ext_resource type="Texture2D" uid="uid://dbex5y3ouc2ri" path="res://assets/sprites/potato/Spring Crops_0007.png" id="29_qa1ps"]
-[ext_resource type="Texture2D" uid="uid://65ayf6h8uskf" path="res://assets/tilesets/Road.png" id="32_ikdkn"]
 [ext_resource type="Resource" uid="uid://bpmuo4gmf16v2" path="res://assets/sprites/Farm Crops/Spring/potato_sheet.tres" id="28_kfxtt"]
+[ext_resource type="Texture2D" uid="uid://blueh5vvus14n" path="res://assets/tilesets/bubbles.png" id="29_eqivq"]
 [ext_resource type="Resource" uid="uid://c6k3fqp0oelpa" path="res://assets/sprites/Farm Crops/Spring/carrot_sheet.tres" id="29_pmpql"]
 [ext_resource type="Resource" uid="uid://dm747n1nk7oga" path="res://assets/sprites/Farm Crops/Spring/strawberry_sheet.tres" id="30_qa1ps"]
 [ext_resource type="Resource" uid="uid://cyo0sbmldi4l5" path="res://assets/sprites/Farm Crops/Summer/tomato_sheet.tres" id="31_gra7h"]
+[ext_resource type="Texture2D" uid="uid://65ayf6h8uskf" path="res://assets/tilesets/Road.png" id="32_ikdkn"]
 [ext_resource type="Resource" uid="uid://bku4sjpvkbbbe" path="res://assets/sprites/Farm Crops/Summer/corn_sheet.tres" id="32_u0bin"]
 [ext_resource type="Texture2D" uid="uid://cn75eenio5v1n" path="res://assets/tilesets/chest.png" id="35_kfxtt"]
 [ext_resource type="Texture2D" uid="uid://c5vsoamdouo3j" path="res://assets/ui/empty_stamina.png" id="36_qa1ps"]
 [ext_resource type="Script" uid="uid://dvpm41ifyght" path="res://scripts/ui/stamina_bar.gd" id="37_gra7h"]
 [ext_resource type="Texture2D" uid="uid://duv188p5bo42e" path="res://assets/ui/full_stamina.png" id="37_u0bin"]
 [ext_resource type="Script" uid="uid://lt7t61g1y250" path="res://scripts/ui/day_night_tint.gd" id="38_dntnt"]
-[ext_resource type="PackedScene" uid="uid://time_ui_01" path="res://scenes/ui/TimeUI.tscn" id="39_tuiscn"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TimeUI.tscn" id="39_tuiscn"]
+[ext_resource type="PackedScene" uid="uid://btalqcqyepdqi" path="res://scenes/ui/quest_log.tscn" id="44_d7twn"]
+[ext_resource type="PackedScene" uid="uid://dlahhqfsa4csy" path="res://scenes/NPCs/alex_npc.tscn" id="46_48hhb"]
+[ext_resource type="PackedScene" uid="uid://bxp6i053fx2xi" path="res://scenes/NPCs/gracie_npc.tscn" id="47_2cdyr"]
+[ext_resource type="PackedScene" uid="uid://odxi4qnshwid" path="res://scenes/NPCs/lyria_npc.tscn" id="48_htqxb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eqivq"]
 
@@ -3341,7 +3338,23 @@ texture_under = ExtResource("36_qa1ps")
 texture_progress = ExtResource("37_u0bin")
 script = ExtResource("37_gra7h")
 
+[node name="QuestLog" parent="CanvasLayer" unique_id=1926499021 groups=["quest_log"] instance=ExtResource("44_d7twn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1505974186]
 script = ExtResource("38_dntnt")
 
 [node name="TimeUI" parent="." unique_id=1293185790 instance=ExtResource("39_tuiscn")]
+
+[node name="AlexNPC" parent="." unique_id=251122582 instance=ExtResource("46_48hhb")]
+position = Vector2(804, 813.3334)
+
+[node name="LyriaNPC" parent="." unique_id=387538201 instance=ExtResource("48_htqxb")]
+position = Vector2(527.6667, 812.6667)
+
+[node name="GracieNPC" parent="." unique_id=1551550735 instance=ExtResource("47_2cdyr")]
+position = Vector2(671.00006, 819.3334)

@@ -760,7 +760,7 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=1886192683]
+[node name="Player" type="CharacterBody2D" unique_id=1886192683 groups=["player"]]
 script = ExtResource("1_4kuee")
 
 [node name="FootstepA" type="AudioStreamPlayer2D" parent="." unique_id=103349347]
