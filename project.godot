@@ -27,6 +27,7 @@ AutomationManager="*res://scripts/systems/automation_manager.gd"
 Crafting="*res://scripts/systems/crafting_system.gd"
 TimeSystem="*uid://c4gdg76u5m3ym"
 BackgroundMusic="*uid://bho2hq4sqpusl"
+QuestState="*uid://sy2cm7lu1erb"
 
 [input]
 

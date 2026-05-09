@@ -16,12 +16,12 @@ var dialogue = []
 var current_dialogue_id = 0
 var d_active = false
 
-enum QuestState { 
+enum QuestProgress { 
 	NOT_STARTED, 
 	IN_PROGRESS,
 	COMPLETE 
 }
-var quest_state = QuestState.NOT_STARTED
+var quest_state = QuestProgress.NOT_STARTED
 
 func _ready():
 	$NinePatchRect.visible = false
@@ -41,22 +41,28 @@ func load_dialogue():
 	if file_path == "":
 		return []
 	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file == null:
+		push_error("Failed to open dialogue file: " + file_path)
+		return []
 	var content = JSON.parse_string(file.get_as_text())
+	if content == null or not content is Array:
+		push_error("Failed to parse dialogue JSON: " + file_path)
+		return []
 	return content
 
 func _pick_dialogue_file() -> String:
-	if dialogue_files.size() < 3:
-		push_error("Need 3 dialogue files on " + get_parent().name)
+	if dialogue_files.size() < 4:
+		push_error("Need 4 dialogue files on " + get_parent().name)
 		return ""
 	match quest_state:
-		QuestState.NOT_STARTED:
+		QuestProgress.NOT_STARTED:
 			return dialogue_files[0]
-		QuestState.IN_PROGRESS:
+		QuestProgress.IN_PROGRESS:
 			if _player_has_items():
 				return dialogue_files[2]
 			else:
 				return dialogue_files[1]
-		QuestState.COMPLETE:
+		QuestProgress.COMPLETE:
 			return dialogue_files[3]
 	return dialogue_files[1]
 		
@@ -64,19 +70,16 @@ func _player_has_items() -> bool:
 	return InventoryState.has_item(required_item, required_amount)
 
 func _handle_quest_progression():
-	var quest_log = get_tree().get_first_node_in_group("quest_log")
 	match quest_state:
-		QuestState.NOT_STARTED:
-			quest_state = QuestState.IN_PROGRESS
-			if quest_log:
-				quest_log.add_quest(quest_name, quest_descr)
-		QuestState.IN_PROGRESS:
+		QuestProgress.NOT_STARTED:
+			quest_state = QuestProgress.IN_PROGRESS
+			QuestState.start_quest(quest_name, quest_descr)
+		QuestProgress.IN_PROGRESS:
 			if _player_has_items():
 				_give_reward()
-				quest_state = QuestState.COMPLETE
-				if quest_log:
-					quest_log.remove_quest(quest_name)
-		QuestState.COMPLETE:
+				quest_state = QuestProgress.COMPLETE
+				QuestState.complete_quest(quest_name)
+		QuestProgress.COMPLETE:
 			pass
 
 func _give_reward():
