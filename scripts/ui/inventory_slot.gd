@@ -20,6 +20,11 @@ func _ready() -> void:
 	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
+	count.add_theme_color_override("font_color", Color("#f3dfb2"))
+	count.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
+	count.add_theme_constant_override("shadow_offset_x", 1)
+	count.add_theme_constant_override("shadow_offset_y", 1)
+
 	if selected_outline != null:
 		selected_outline.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		selected_outline.visible = false
@@ -100,7 +105,37 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 
 
 func _update_visual() -> void:
+	var style := StyleBoxFlat.new()
+
+	# Empty vs filled slot colors
+	if _item_id == "":
+		style.bg_color = Color("#2b2118", 0.55)   # faded dark brown
+	else:
+		style.bg_color = Color("#241b14", 0.82)   # richer dark brown
+
+	# Border colors
+	if _is_selected:
+		style.border_color = Color("#e7c56a")     # warm gold
+		style.set_border_width_all(3)
+	else:
+		style.border_color = Color("#8a6a45")     # muted tan/brown
+		style.set_border_width_all(1)
+
+	# Rounded corners
+	style.corner_radius_top_left = 4
+	style.corner_radius_top_right = 4
+	style.corner_radius_bottom_left = 4
+	style.corner_radius_bottom_right = 4
+
+	# Inner padding
+	style.content_margin_left = 4
+	style.content_margin_right = 4
+	style.content_margin_top = 4
+	style.content_margin_bottom = 4
+
+	add_theme_stylebox_override("panel", style)
+
 	modulate = Color.WHITE
 
 	if selected_outline != null:
-		selected_outline.visible = _is_selected
+		selected_outline.visible = false
