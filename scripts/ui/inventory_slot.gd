@@ -11,6 +11,7 @@ var _item_id: String = ""
 var _count: int = 0
 var _slot_index: int = -1
 var _is_selected: bool = false
+var _style: StyleBoxFlat = null
 
 
 func _ready() -> void:
@@ -103,37 +104,35 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	var from_index: int = int(data["from_index"])
 	slot_drop_requested.emit(from_index, _slot_index)
 
+func _ensure_style() -> void:
+	if _style == null:
+		_style = StyleBoxFlat.new()
+		add_theme_stylebox_override("panel", _style)
 
 func _update_visual() -> void:
-	var style := StyleBoxFlat.new()
+	_ensure_style()
 
-	# Empty vs filled slot colors
 	if _item_id == "":
-		style.bg_color = Color("#2b2118", 0.55)   # faded dark brown
+		_style.bg_color = Color("#2b2118", 0.55)
 	else:
-		style.bg_color = Color("#241b14", 0.82)   # richer dark brown
+		_style.bg_color = Color("#241b14", 0.82)
 
-	# Border colors
 	if _is_selected:
-		style.border_color = Color("#e7c56a")     # warm gold
-		style.set_border_width_all(3)
+		_style.border_color = Color("#e7c56a")
+		_style.set_border_width_all(3)
 	else:
-		style.border_color = Color("#8a6a45")     # muted tan/brown
-		style.set_border_width_all(1)
+		_style.border_color = Color("#8a6a45")
+		_style.set_border_width_all(1)
 
-	# Rounded corners
-	style.corner_radius_top_left = 4
-	style.corner_radius_top_right = 4
-	style.corner_radius_bottom_left = 4
-	style.corner_radius_bottom_right = 4
+	_style.corner_radius_top_left = 4
+	_style.corner_radius_top_right = 4
+	_style.corner_radius_bottom_left = 4
+	_style.corner_radius_bottom_right = 4
 
-	# Inner padding
-	style.content_margin_left = 4
-	style.content_margin_right = 4
-	style.content_margin_top = 4
-	style.content_margin_bottom = 4
-
-	add_theme_stylebox_override("panel", style)
+	_style.content_margin_left = 4
+	_style.content_margin_right = 4
+	_style.content_margin_top = 4
+	_style.content_margin_bottom = 4
 
 	modulate = Color.WHITE
 

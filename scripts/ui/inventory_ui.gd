@@ -133,26 +133,6 @@ func _apply_slot_highlights() -> void:
 
 		slot.set_selected(item_id != "" and item_id == sel)
 
-
-func _apply_inventory_theme() -> void:
-	var panel_style := StyleBoxFlat.new()
-	panel_style.bg_color = Color("#3a2415", 0.92)
-	panel_style.border_color = Color("#8a5a2b")
-	panel_style.set_border_width_all(3)
-
-	panel_style.corner_radius_top_left = 6
-	panel_style.corner_radius_top_right = 6
-	panel_style.corner_radius_bottom_left = 6
-	panel_style.corner_radius_bottom_right = 6
-
-	panel_style.content_margin_left = 8
-	panel_style.content_margin_right = 8
-	panel_style.content_margin_top = 3
-	panel_style.content_margin_bottom = 3
-
-	panel.add_theme_stylebox_override("panel", panel_style)
-
-
 func _apply_wood_theme() -> void:
 	var wood := StyleBoxFlat.new()
 	wood.bg_color = Color("#4a2f1b", 0.94)
