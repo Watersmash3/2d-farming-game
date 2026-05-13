@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="2D farming game"
-run/main_scene="uid://cx8s08a2im75o"
+run/main_scene="res://scenes/Game.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,6 +25,7 @@ InventoryState="*res://scripts/core/inventory_state.gd"
 ProgressionManager="*res://scripts/core/progression_manager.gd"
 AutomationManager="*res://scripts/systems/automation_manager.gd"
 Crafting="*res://scripts/systems/crafting_system.gd"
+SceneTransition="*res://scripts/systems/scene_transition.gd"
 TimeSystem="*uid://c4gdg76u5m3ym"
 BackgroundMusic="*uid://bho2hq4sqpusl"
 QuestState="*uid://sy2cm7lu1erb"

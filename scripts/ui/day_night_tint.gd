@@ -21,6 +21,9 @@ const HOUR_COLORS: Dictionary = {
 
 const TWEEN_DURATION: float = 1.5
 
+var _enabled_for_current_map: bool = true
+var _active_tween: Tween
+
 
 func _ready() -> void:
 	TimeSystem.hour_advanced.connect(_on_hour_advanced)
@@ -28,9 +31,25 @@ func _ready() -> void:
 
 
 func _on_hour_advanced(new_hour: int, _old_hour: int) -> void:
+	if not _enabled_for_current_map:
+		return
 	var target := _color_for_hour(new_hour)
-	var tw := create_tween()
-	tw.tween_property(self, "color", target, TWEEN_DURATION)
+	_tween_to_color(target)
+
+
+func set_day_night_enabled(enabled: bool) -> void:
+	_enabled_for_current_map = enabled
+	if enabled:
+		_tween_to_color(_color_for_hour(TimeSystem.get_current_hour()))
+	else:
+		_tween_to_color(Color.WHITE)
+
+
+func _tween_to_color(target: Color) -> void:
+	if _active_tween != null and _active_tween.is_valid():
+		_active_tween.kill()
+	_active_tween = create_tween()
+	_active_tween.tween_property(self, "color", target, TWEEN_DURATION)
 
 
 ## Linearly interpolates between the two nearest hour keyframes.
