@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8craftmenu01"]
+[gd_scene format=3 uid="uid://b8craftmenu01"]
 
-[ext_resource type="Script" path="res://scripts/ui/crafting_menu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://c4qrc0m65vkx1" path="res://scripts/ui/crafting_menu.gd" id="1_script"]
 
-[node name="CraftingMenu" type="CanvasLayer"]
+[node name="CraftingMenu" type="CanvasLayer" unique_id=1187809674]
 script = ExtResource("1_script")
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=1854859763]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,43 +14,49 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Panel" type="PanelContainer" parent="Root"]
+[node name="Panel" type="PanelContainer" parent="Root" unique_id=1946373542]
 layout_mode = 1
 anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = 24.0
-offset_top = 24.0
-offset_right = 520.0
-offset_bottom = 360.0
+offset_top = -55.0
+offset_right = 560.0
+offset_bottom = 307.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Margin" type="MarginContainer" parent="Root/Panel"]
+[node name="Margin" type="MarginContainer" parent="Root/Panel" unique_id=182029488]
 layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
 
-[node name="VBox" type="VBoxContainer" parent="Root/Panel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Root/Panel/Margin" unique_id=1746047830]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Root/Panel/Margin/VBox"]
+[node name="Title" type="Label" parent="Root/Panel/Margin/VBox" unique_id=1256613059]
 layout_mode = 2
-text = "Crafting — Automation"
+text = "Crafting - Automation"
 
-[node name="Hint" type="Label" parent="Root/Panel/Margin/VBox"]
+[node name="Hint" type="Label" parent="Root/Panel/Margin/VBox" unique_id=875478855]
 layout_mode = 2
 text = "K: close · Unlock: harvest 3 crops or F9 (dev)"
 
-[node name="Scroll" type="ScrollContainer" parent="Root/Panel/Margin/VBox"]
-custom_minimum_size = Vector2(0, 200)
+[node name="Scroll" type="ScrollContainer" parent="Root/Panel/Margin/VBox" unique_id=1505046402]
+custom_minimum_size = Vector2(0, 235)
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
-[node name="RecipeList" type="VBoxContainer" parent="Root/Panel/Margin/VBox/Scroll"]
+[node name="RecipeList" type="VBoxContainer" parent="Root/Panel/Margin/VBox/Scroll" unique_id=416109194]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 
-[node name="Status" type="Label" parent="Root/Panel/Margin/VBox"]
+[node name="Status" type="Label" parent="Root/Panel/Margin/VBox" unique_id=558964217]
 layout_mode = 2
-text = ""

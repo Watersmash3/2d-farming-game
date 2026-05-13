@@ -34,7 +34,7 @@ var _sheets: Dictionary = {}
 var crop_defs := {
 	"potato": {
 		"growth_days": 6,
-		"stages": 7,
+		"stages": 6,
 		"seeds_returned_on_harvest": 2,
 	},
 	"carrot": {
@@ -49,12 +49,12 @@ var crop_defs := {
 	},
 	"tomato": {
 		"growth_days": 6,
-		"stages": 6,
+		"stages": 7,
 		"seeds_returned_on_harvest": 1,
 	},
 	"corn": {
 		"growth_days": 10,
-		"stages": 7,
+		"stages": 8,
 		"seeds_returned_on_harvest": 1,
 	},
 }
@@ -280,7 +280,12 @@ func _get_crop_stage_texture(crop_id: String, age: int) -> Texture2D:
 
 	var stages: int = int(crop_defs[crop_id]["stages"])
 	var total_frames: int = sheet.frame_count()
-	var stage_index: int = clamp(mini(age, stages - 1), 0, total_frames - 1)
+	if stages <= 0 or total_frames <= 0:
+		return null
+	var growth_days: int = maxi(1, int(crop_defs[crop_id]["growth_days"]))
+	var growth_progress: float = clamp(float(age) / float(growth_days), 0.0, 1.0)
+	var stage_index: int = int(floor(growth_progress * float(stages - 1)))
+	stage_index = clamp(stage_index, 0, mini(stages - 1, total_frames - 1))
 	return sheet.get_frame(stage_index)
 
 func get_cell_world_center(cell: Vector2i) -> Vector2:
