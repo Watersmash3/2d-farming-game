@@ -46,7 +46,10 @@ func _transition() -> void:
 
 	_is_transitioning = true
 	monitoring = false
-	SceneTransition.change_scene(destination_scene, destination_spawn_name)
+	var ok := SceneTransition.change_scene(destination_scene, destination_spawn_name)
+	if not ok:
+		_is_transitioning = false
+		monitoring = true
 
 
 func reset_portal() -> void:

@@ -16,24 +16,28 @@ func _ready() -> void:
 	change_map(starting_map_scene, starting_spawn_name)
 
 
-func change_map(scene_path: String, spawn_name: String = "") -> void:
+func change_map(scene_path: String, spawn_name: String = "") -> bool:
 	if scene_path.is_empty():
 		push_warning("Cannot change to an empty map scene path.")
-		return
-
-	if _current_map != null:
-		map_container.remove_child(_current_map)
+		return false
 
 	var map := _get_or_create_map(scene_path)
 	if map == null:
-		return
+		return false
+
+	if _current_map != null and _current_map.get_parent() == map_container:
+		map_container.remove_child(_current_map)
 
 	_current_map = map
 	if map.get_parent() == null:
 		map_container.add_child(map)
 	_reset_portals(map)
 	_apply_map_lighting(map)
+	_move_player_to_spawn_deferred(spawn_name)
+	return true
 
+
+func _move_player_to_spawn_deferred(spawn_name: String) -> void:
 	await get_tree().process_frame
 	_move_player_to_spawn(spawn_name)
 
