@@ -11,6 +11,7 @@ var _item_id: String = ""
 var _count: int = 0
 var _slot_index: int = -1
 var _is_selected: bool = false
+var _style: StyleBoxFlat = null
 
 
 func _ready() -> void:
@@ -19,6 +20,11 @@ func _ready() -> void:
 	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+	count.add_theme_color_override("font_color", Color("#f3dfb2"))
+	count.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
+	count.add_theme_constant_override("shadow_offset_x", 1)
+	count.add_theme_constant_override("shadow_offset_y", 1)
 
 	if selected_outline != null:
 		selected_outline.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -98,9 +104,37 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	var from_index: int = int(data["from_index"])
 	slot_drop_requested.emit(from_index, _slot_index)
 
+func _ensure_style() -> void:
+	if _style == null:
+		_style = StyleBoxFlat.new()
+		add_theme_stylebox_override("panel", _style)
 
 func _update_visual() -> void:
+	_ensure_style()
+
+	if _item_id == "":
+		_style.bg_color = Color("#2b2118", 0.55)
+	else:
+		_style.bg_color = Color("#241b14", 0.82)
+
+	if _is_selected:
+		_style.border_color = Color("#e7c56a")
+		_style.set_border_width_all(3)
+	else:
+		_style.border_color = Color("#8a6a45")
+		_style.set_border_width_all(1)
+
+	_style.corner_radius_top_left = 4
+	_style.corner_radius_top_right = 4
+	_style.corner_radius_bottom_left = 4
+	_style.corner_radius_bottom_right = 4
+
+	_style.content_margin_left = 4
+	_style.content_margin_right = 4
+	_style.content_margin_top = 4
+	_style.content_margin_bottom = 4
+
 	modulate = Color.WHITE
 
 	if selected_outline != null:
-		selected_outline.visible = _is_selected
+		selected_outline.visible = false

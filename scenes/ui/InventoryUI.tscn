@@ -38,6 +38,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="HotbarBackground" type="Panel" parent="CanvasLayer/Control/BottomBarArea/CenterContainer" unique_id=505685519]
+layout_mode = 2
+mouse_filter = 2
+
 [node name="HotBar" type="HBoxContainer" parent="CanvasLayer/Control/BottomBarArea/CenterContainer" unique_id=1490842895]
 layout_mode = 2
 
