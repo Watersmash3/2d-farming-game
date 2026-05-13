@@ -6,12 +6,14 @@ const TOOL_HOE := 1
 const TOOL_WATER := 2
 const TOOL_PLANT := 3
 const TOOL_HARVEST := 4
+const TOOL_FISHING := 5
 
 const TOOL_LABELS := {
 	TOOL_HOE: "Hoe",
 	TOOL_WATER: "Water",
 	TOOL_PLANT: "Plant",
 	TOOL_HARVEST: "Harvest",
+	TOOL_FISHING: "Fishing Rod",
 }
 
 var selected_tool: int = TOOL_HOE

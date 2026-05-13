@@ -15,6 +15,7 @@ const DATA := {
 	"wood":            { "name": "Wood" },
 	"stone":           { "name": "Stone" },
 	"fiber":           { "name": "Plant Fiber" },
+	"fish":            { "name": "Fish" },
 	"auto_waterer":    { "name": "Auto-Waterer" },
 	"auto_seeder":     { "name": "Auto-Seeder" },
 	"auto_harvester":  { "name": "Auto-Harvester" },

@@ -82,6 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_2: ToolState.set_selected_tool(ToolState.TOOL_WATER)
 			KEY_3: ToolState.set_selected_tool(ToolState.TOOL_PLANT)
 			KEY_4: ToolState.set_selected_tool(ToolState.TOOL_HARVEST)
+			KEY_5: ToolState.set_selected_tool(ToolState.TOOL_FISHING)
 			KEY_N:
 				TimeSystem.advance_day()
 				print("[Time] Advanced to day ", TimeSystem.get_current_day())
@@ -107,6 +108,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		if _ui_is_blocking_mouse():
+			return
+
+		if ToolState.selected_tool == ToolState.TOOL_FISHING:
+			print("[Fishing] This test map has no fishing water configured.")
 			return
 
 		var mouse_world: Vector2 = get_global_mouse_position()
