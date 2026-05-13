@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cuxr7wop0nvi0"]
+
+[ext_resource type="Script" uid="uid://cfxawmrxc7icn" path="res://scripts/core/game.gd" id="1_game"]
+[ext_resource type="PackedScene" uid="uid://ds2fppti8hcnr" path="res://scenes/player/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://c0622m6b2d0ox" path="res://scenes/ui/InventoryUI.tscn" id="3_inv"]
+[ext_resource type="PackedScene" uid="uid://b8craftmenu01" path="res://scenes/ui/CraftingMenu.tscn" id="4_craft"]
+[ext_resource type="Texture2D" uid="uid://c5vsoamdouo3j" path="res://assets/ui/empty_stamina.png" id="5_stamina_empty"]
+[ext_resource type="Texture2D" uid="uid://duv188p5bo42e" path="res://assets/ui/full_stamina.png" id="6_stamina_full"]
+[ext_resource type="Script" uid="uid://dvpm41ifyght" path="res://scripts/ui/stamina_bar.gd" id="7_stamina_script"]
+[ext_resource type="Script" uid="uid://lt7t61g1y250" path="res://scripts/ui/day_night_tint.gd" id="8_day_night"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TimeUI.tscn" id="9_time_ui"]
+[ext_resource type="PackedScene" uid="uid://btalqcqyepdqi" path="res://scenes/ui/quest_log.tscn" id="10_quest_log"]
+
+[node name="Game" type="Node2D" unique_id=1357495617]
+script = ExtResource("1_game")
+
+[node name="WorldRoot" type="Node2D" parent="." unique_id=576289366]
+scale = Vector2(3, 3)
+
+[node name="MapContainer" type="Node2D" parent="WorldRoot" unique_id=593657120]
+
+[node name="Player" parent="WorldRoot" unique_id=970031085 instance=ExtResource("2_player")]
+
+[node name="InventoryUi" parent="." unique_id=1431476900 instance=ExtResource("3_inv")]
+
+[node name="CraftingMenu" parent="." unique_id=1248377820 groups=["crafting_menu"] instance=ExtResource("4_craft")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=463521909]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1684016325]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+offset_right = 104.0
+grow_vertical = 0
+fill_mode = 5
+texture_under = ExtResource("5_stamina_empty")
+texture_progress = ExtResource("6_stamina_full")
+script = ExtResource("7_stamina_script")
+
+[node name="QuestLog" parent="CanvasLayer" unique_id=890671268 groups=["quest_log"] instance=ExtResource("10_quest_log")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1091102544]
+script = ExtResource("8_day_night")
+
+[node name="TimeUI" parent="." unique_id=1062356735 instance=ExtResource("9_time_ui")]

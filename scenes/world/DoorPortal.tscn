@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bikjxahi8aece"]
+
+[ext_resource type="Script" uid="uid://bltsexxdkermp" path="res://scripts/systems/door_portal.gd" id="1_qd0lw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nroje"]
+size = Vector2(12, 20)
+
+[node name="DoorPortal" type="Area2D" unique_id=1988054460]
+script = ExtResource("1_qd0lw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1094702410]
+shape = SubResource("RectangleShape2D_nroje")

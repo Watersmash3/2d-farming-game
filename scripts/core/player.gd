@@ -26,6 +26,7 @@ var _last_till_index := -1
 var _footstep_cooldown := 0.0
 var stamina: float = max_stamina
 var _stamina_regen_timer := 0.0
+static var _starter_inventory_granted := false
 
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -140,6 +141,10 @@ func _update_animation(input_dir: Vector2) -> void:
 func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
 	sprite.frame_changed.connect(_on_frame_changed)
+
+	if _starter_inventory_granted:
+		return
+	_starter_inventory_granted = true
 
 	# Starter seeds — more come from harvest. TODO: move to new-game / difficulty config.
 	InventoryState.add_item("potato_seed", 10)

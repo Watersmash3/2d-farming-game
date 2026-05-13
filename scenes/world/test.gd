@@ -36,7 +36,7 @@ func _seed_to_crop(item_id: String) -> String:
 @onready var farm_map: TileMapLayer = $FarmTileMap
 @onready var machines_root: Node2D = $Machines
 @onready var placement_preview: Sprite2D = $PlacementPreview
-@onready var crafting_menu: CanvasLayer = $CraftingMenu
+@onready var crafting_menu: CanvasLayer = _get_crafting_menu()
 
 var tool: int = 1
 # 1 hoe, 2 water, 3 plant, 4 harvest
@@ -49,9 +49,17 @@ func _ready() -> void:
 	placement_preview.visible = false
 	placement_preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	# Part 4: pause time when crafting menu opens
-	crafting_menu.visibility_changed.connect(_on_menu_visibility_changed)
+	if crafting_menu != null:
+		crafting_menu.visibility_changed.connect(_on_menu_visibility_changed)
 	# Start time flowing
 	TimeSystem.set_paused(false)
+
+
+func _get_crafting_menu() -> CanvasLayer:
+	var persistent_menu := get_tree().get_first_node_in_group("crafting_menu") as CanvasLayer
+	if persistent_menu != null:
+		return persistent_menu
+	return get_node_or_null("CraftingMenu") as CanvasLayer
 
 
 func _on_menu_visibility_changed() -> void:

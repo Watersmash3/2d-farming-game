@@ -17,15 +17,12 @@
 [ext_resource type="PackedScene" uid="uid://vp2fqai0wd0a" path="res://scenes/world/nature/tree_1.tscn" id="10_3koix"]
 [ext_resource type="Texture2D" uid="uid://bro3mu4px28ut" path="res://assets/tilesets/ALL props seasons.png" id="11_vxi8q"]
 [ext_resource type="Texture2D" uid="uid://dnk1ge8ekg5yf" path="res://assets/tilesets/Water props.png" id="12_c0xpp"]
-[ext_resource type="PackedScene" uid="uid://ds2fppti8hcnr" path="res://scenes/player/Player.tscn" id="13_vxi8q"]
 [ext_resource type="Script" uid="uid://xy5rrisgrpp" path="res://scripts/systems/animal_spawner.gd" id="14_5456l"]
 [ext_resource type="PackedScene" uid="uid://cssntsarp3ed6" path="res://scenes/animals/Blonde_Chicken.tscn" id="15_rv7gd"]
 [ext_resource type="PackedScene" uid="uid://cvdd3oluoa7oi" path="res://scenes/animals/Red_Chicken.tscn" id="16_gsgdf"]
 [ext_resource type="PackedScene" uid="uid://b6m572wae8xbl" path="res://scenes/animals/Female_Cow.tscn" id="17_1xdix"]
 [ext_resource type="PackedScene" uid="uid://c5bmrrofo1kto" path="res://scenes/animals/Male_Cow.tscn" id="18_rcdps"]
-[ext_resource type="PackedScene" uid="uid://c0622m6b2d0ox" path="res://scenes/ui/InventoryUI.tscn" id="19_ms7pb"]
 [ext_resource type="PackedScene" uid="uid://cx35hsj5e1lhj" path="res://scenes/world/buildings/silo.tscn" id="20_lch2g"]
-[ext_resource type="PackedScene" uid="uid://b8craftmenu01" path="res://scenes/ui/CraftingMenu.tscn" id="20_x3sur"]
 [ext_resource type="PackedScene" uid="uid://cnfb1fu5cfwe5" path="res://scenes/world/buildings/windmill.tscn" id="21_ikdkn"]
 [ext_resource type="PackedScene" uid="uid://bpl7375oad0h6" path="res://scenes/world/buildings/farm_npc_house.tscn" id="22_qa1ps"]
 [ext_resource type="Script" uid="uid://csd0epc0x7ebv" path="res://scripts/systems/farming_system.gd" id="22_uc04u"]
@@ -40,12 +37,6 @@
 [ext_resource type="Texture2D" uid="uid://65ayf6h8uskf" path="res://assets/tilesets/Road.png" id="32_ikdkn"]
 [ext_resource type="Resource" uid="uid://bku4sjpvkbbbe" path="res://assets/sprites/Farm Crops/Summer/corn_sheet.tres" id="32_u0bin"]
 [ext_resource type="Texture2D" uid="uid://cn75eenio5v1n" path="res://assets/tilesets/chest.png" id="35_kfxtt"]
-[ext_resource type="Texture2D" uid="uid://c5vsoamdouo3j" path="res://assets/ui/empty_stamina.png" id="36_qa1ps"]
-[ext_resource type="Script" uid="uid://dvpm41ifyght" path="res://scripts/ui/stamina_bar.gd" id="37_gra7h"]
-[ext_resource type="Texture2D" uid="uid://duv188p5bo42e" path="res://assets/ui/full_stamina.png" id="37_u0bin"]
-[ext_resource type="Script" uid="uid://lt7t61g1y250" path="res://scripts/ui/day_night_tint.gd" id="38_dntnt"]
-[ext_resource type="PackedScene" path="res://scenes/ui/TimeUI.tscn" id="39_tuiscn"]
-[ext_resource type="PackedScene" uid="uid://btalqcqyepdqi" path="res://scenes/ui/quest_log.tscn" id="44_d7twn"]
 [ext_resource type="PackedScene" uid="uid://dlahhqfsa4csy" path="res://scenes/NPCs/alex_npc.tscn" id="46_48hhb"]
 [ext_resource type="PackedScene" uid="uid://bxp6i053fx2xi" path="res://scenes/NPCs/gracie_npc.tscn" id="47_2cdyr"]
 [ext_resource type="PackedScene" uid="uid://odxi4qnshwid" path="res://scenes/NPCs/lyria_npc.tscn" id="48_htqxb"]
@@ -2416,7 +2407,6 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_u0bin")
 sources/0 = SubResource("TileSetAtlasSource_qprq0")
 
 [node name="Town" type="Node2D" unique_id=14324027]
-scale = Vector2(3, 3)
 script = ExtResource("1_0wi7c")
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=472090391]
@@ -3295,14 +3285,10 @@ spawn_area_position = Vector2(0, 0)
 spawn_area_size = Vector2(300, 300)
 min_distance_between_animals = 100.0
 
-[node name="Player" parent="." unique_id=1886192683 instance=ExtResource("13_vxi8q")]
+[node name="TownStartSpawn" type="Marker2D" parent="." unique_id=733844509]
 position = Vector2(896, 816)
 
 [node name="Props" type="Node2D" parent="." unique_id=936124698]
-
-[node name="InventoryUi" parent="." unique_id=288281950 instance=ExtResource("19_ms7pb")]
-
-[node name="CraftingMenu" parent="." unique_id=780953289 instance=ExtResource("20_x3sur")]
 
 [node name="FarmingSystem" type="Node" parent="." unique_id=954794098]
 script = ExtResource("22_uc04u")
@@ -3323,32 +3309,6 @@ texture = ExtResource("35_kfxtt")
 
 [node name="Machines" type="Node2D" parent="." unique_id=223417954]
 scale = Vector2(0.11666667, 0.11666667)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=817740009]
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1066156428]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -104.0
-offset_right = 104.0
-grow_vertical = 0
-fill_mode = 5
-texture_under = ExtResource("36_qa1ps")
-texture_progress = ExtResource("37_u0bin")
-script = ExtResource("37_gra7h")
-
-[node name="QuestLog" parent="CanvasLayer" unique_id=1926499021 groups=["quest_log"] instance=ExtResource("44_d7twn")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1505974186]
-script = ExtResource("38_dntnt")
-
-[node name="TimeUI" parent="." unique_id=1293185790 instance=ExtResource("39_tuiscn")]
 
 [node name="AlexNPC" parent="." unique_id=251122582 instance=ExtResource("46_48hhb")]
 position = Vector2(804, 813.3334)
