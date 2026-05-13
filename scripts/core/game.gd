@@ -13,7 +13,9 @@ var _current_map: Node
 
 func _ready() -> void:
 	SceneTransition.game = self
-	change_map(starting_map_scene, starting_spawn_name)
+	if not change_map(starting_map_scene, starting_spawn_name):
+		push_error("Failed to load starting map '%s' at spawn '%s'." % [starting_map_scene, starting_spawn_name])
+		get_tree().quit(1)
 
 
 func change_map(scene_path: String, spawn_name: String = "") -> bool:
@@ -33,12 +35,14 @@ func change_map(scene_path: String, spawn_name: String = "") -> bool:
 		map_container.add_child(map)
 	_reset_portals(map)
 	_apply_map_lighting(map)
-	_move_player_to_spawn_deferred(spawn_name)
+	_move_player_to_spawn_deferred(spawn_name, map.get_instance_id())
 	return true
 
 
-func _move_player_to_spawn_deferred(spawn_name: String) -> void:
+func _move_player_to_spawn_deferred(spawn_name: String, map_instance_id: int) -> void:
 	await get_tree().process_frame
+	if _current_map == null or _current_map.get_instance_id() != map_instance_id:
+		return
 	_move_player_to_spawn(spawn_name)
 
 
