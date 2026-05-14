@@ -18,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="BottomBarArea" type="Control" parent="CanvasLayer/Control" unique_id=159796979]
 layout_mode = 1
@@ -29,6 +30,7 @@ offset_top = -190.0
 offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/BottomBarArea" unique_id=1144767869]
 layout_mode = 1
@@ -37,6 +39,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HotbarBackground" type="Panel" parent="CanvasLayer/Control/BottomBarArea/CenterContainer" unique_id=505685519]
 layout_mode = 2
@@ -44,6 +47,17 @@ mouse_filter = 2
 
 [node name="HotBar" type="HBoxContainer" parent="CanvasLayer/Control/BottomBarArea/CenterContainer" unique_id=1490842895]
 layout_mode = 2
+mouse_filter = 0
+
+[node name="ToolBadge" type="PanelContainer" parent="CanvasLayer/Control/BottomBarArea" unique_id=1031092674]
+layout_mode = 0
+offset_right = 62.0
+offset_bottom = 30.0
+
+[node name="ToolBadgeLabel" type="Label" parent="CanvasLayer/Control/BottomBarArea/ToolBadge" unique_id=924179131]
+layout_mode = 2
+mouse_filter = 2
+text = "1 Hoe"
 
 [node name="InventorySlot" parent="CanvasLayer/Control/BottomBarArea/CenterContainer/HotBar" unique_id=1287065773 instance=ExtResource("1_p0ay3")]
 layout_mode = 2
@@ -75,18 +89,22 @@ offset_left = 576.0
 offset_top = 130.0
 offset_right = 576.0
 offset_bottom = 130.0
+mouse_filter = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jywan")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/BottomBarArea/Panel" unique_id=586203552]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 0
 
 [node name="Title" type="Label" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer" unique_id=364789528]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Grid" type="GridContainer" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer" unique_id=333257935]
 layout_mode = 2
+mouse_filter = 0
 columns = 8
 
 [node name="InventorySlot" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid" unique_id=1554263431 instance=ExtResource("1_p0ay3")]
@@ -163,3 +181,4 @@ layout_mode = 2
 
 [node name="HintLabel" type="Label" parent="CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer" unique_id=446728589]
 layout_mode = 2
+mouse_filter = 2

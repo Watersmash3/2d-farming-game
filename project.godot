@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://cxhy1vf1tbhhr"
 [autoload]
 
 InventoryState="*res://scripts/core/inventory_state.gd"
+ToolState="*res://scripts/core/tool_state.gd"
 ProgressionManager="*res://scripts/core/progression_manager.gd"
 AutomationManager="*res://scripts/systems/automation_manager.gd"
 Crafting="*res://scripts/systems/crafting_system.gd"

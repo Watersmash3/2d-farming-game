@@ -26,6 +26,10 @@ static func build_icon_map() -> Dictionary:
 	auto_water_icon.atlas = _WATER_PROPS
 	auto_water_icon.region = Rect2(0, 0, 16, 16)
 
+	var fish_icon := AtlasTexture.new()
+	fish_icon.atlas = _WATER_PROPS
+	fish_icon.region = Rect2(16, 0, 16, 16)
+
 	# --- new crop sheets (runtime load — safe if not yet imported) ---
 	# Icons use the first frame as the seed and the last frame as the harvest item.
 	# frame_w assumes 16 px per stage; update if your sheets use a different size.
@@ -35,6 +39,7 @@ static func build_icon_map() -> Dictionary:
 		"wood":         wood_icon,
 		"stone":        stone_icon,
 		"fiber":        _FIBER,
+		"fish":         fish_icon,
 		"auto_waterer": auto_water_icon,
 	}
 

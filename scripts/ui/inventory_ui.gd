@@ -5,6 +5,8 @@ extends Node
 @onready var panel_contents: VBoxContainer = $CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer
 @onready var inventory_grid: GridContainer = $CanvasLayer/Control/BottomBarArea/Panel/VBoxContainer/Grid
 @onready var hotbar_background: Panel = $CanvasLayer/Control/BottomBarArea/CenterContainer/HotbarBackground
+@onready var tool_badge: PanelContainer = $CanvasLayer/Control/BottomBarArea/ToolBadge
+@onready var tool_badge_label: Label = $CanvasLayer/Control/BottomBarArea/ToolBadge/ToolBadgeLabel
 
 var icon_by_id: Dictionary = {}
 const INVENTORY_PAD_X := 16.0
@@ -24,8 +26,12 @@ func _ready() -> void:
 	InventoryState.selected_item_changed.connect(func(_id: String) -> void:
 		_apply_slot_highlights()
 	)
+	ToolState.tool_changed.connect(func(_tool_id: int) -> void:
+		_update_tool_badge()
+	)
 
 	refresh()
+	_update_tool_badge()
 
 	await get_tree().process_frame
 	_update_panel_layout()
@@ -65,6 +71,9 @@ func _update_panel_layout() -> void:
 	# Line hotbar backing up with inventory panel
 	hotbar_background.position.x = panel.position.x
 	hotbar_background.position.y = hotbar.position.y - 5.0
+
+	tool_badge.position.x = hotbar_background.position.x + hotbar_background.size.x + 8.0
+	tool_badge.position.y = hotbar_background.position.y + (hotbar_background.size.y - tool_badge.size.y) / 2.0
 
 
 func _connect_slots() -> void:
@@ -167,3 +176,28 @@ func _apply_wood_theme() -> void:
 	inv_wood.content_margin_bottom = 3
 
 	panel.add_theme_stylebox_override("panel", inv_wood)
+
+	var badge_wood := StyleBoxFlat.new()
+	badge_wood.bg_color = Color("#241b14", 0.92)
+	badge_wood.border_color = Color("#e7c56a")
+	badge_wood.set_border_width_all(2)
+	badge_wood.corner_radius_top_left = 4
+	badge_wood.corner_radius_top_right = 4
+	badge_wood.corner_radius_bottom_left = 4
+	badge_wood.corner_radius_bottom_right = 4
+	badge_wood.content_margin_left = 8
+	badge_wood.content_margin_right = 8
+	badge_wood.content_margin_top = 4
+	badge_wood.content_margin_bottom = 4
+	tool_badge.add_theme_stylebox_override("panel", badge_wood)
+	tool_badge.mouse_filter = Control.MOUSE_FILTER_STOP
+	tool_badge_label.add_theme_color_override("font_color", Color("#f3dfb2"))
+	tool_badge_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
+	tool_badge_label.add_theme_constant_override("shadow_offset_x", 1)
+	tool_badge_label.add_theme_constant_override("shadow_offset_y", 1)
+
+
+func _update_tool_badge() -> void:
+	tool_badge_label.text = "%d %s" % [ToolState.selected_tool, ToolState.get_selected_tool_label()]
+	tool_badge.size = tool_badge.get_combined_minimum_size()
+	call_deferred("_update_panel_layout")

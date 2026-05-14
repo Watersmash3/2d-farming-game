@@ -1,5 +1,6 @@
 extends Node2D
 
+const FISHING_MINIGAME_SCENE: PackedScene = preload("res://scenes/ui/FishingMinigame.tscn")
 const AUTO_WATERER_SCENE:   PackedScene = preload("res://scenes/automation/AutoWaterer.tscn")
 const AUTO_SEEDER_SCENE:    PackedScene = preload("res://scenes/automation/AutoSeeder.tscn")
 const AUTO_HARVESTER_SCENE: PackedScene = preload("res://scenes/automation/AutoHarvester.tscn")
@@ -34,20 +35,23 @@ func _seed_to_crop(item_id: String) -> String:
 
 @onready var farming: FarmingSystem = $FarmingSystem
 @onready var farm_map: TileMapLayer = $Tilemaps/Farm
+@onready var water_map: TileMapLayer = $Tilemaps/BaseWater
 @onready var machines_root: Node2D = $Machines
 @onready var placement_preview: Sprite2D = $PlacementPreview
 @onready var crafting_menu: CanvasLayer = _get_crafting_menu()
 
-var tool: int = 1
-# 1 hoe, 2 water, 3 plant, 4 harvest
-
 var machine_placement_active: bool = false
 var _pending_machine_item: String = ""  # item id being placed
+var _fishing_minigame: FishingMinigame
+var _fishing_active := false
 
 
 func _ready() -> void:
 	placement_preview.visible = false
 	placement_preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_fishing_minigame = FISHING_MINIGAME_SCENE.instantiate() as FishingMinigame
+	add_child(_fishing_minigame)
+	_fishing_minigame.fishing_finished.connect(_on_fishing_finished)
 	# Pause time when crafting menu opens
 	if crafting_menu != null:
 		crafting_menu.visibility_changed.connect(_on_menu_visibility_changed)
@@ -81,12 +85,16 @@ func _process(_delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if _fishing_active:
+		return
+
 	if event is InputEventKey and event.pressed:
 		match event.keycode:
-			KEY_1: tool = 1
-			KEY_2: tool = 2
-			KEY_3: tool = 3
-			KEY_4: tool = 4
+			KEY_1: ToolState.set_selected_tool(ToolState.TOOL_HOE)
+			KEY_2: ToolState.set_selected_tool(ToolState.TOOL_WATER)
+			KEY_3: ToolState.set_selected_tool(ToolState.TOOL_PLANT)
+			KEY_4: ToolState.set_selected_tool(ToolState.TOOL_HARVEST)
+			KEY_5: ToolState.set_selected_tool(ToolState.TOOL_FISHING)
 			KEY_N:
 				TimeSystem.advance_day()
 				print("[Time] Advanced to day ", TimeSystem.get_current_day())
@@ -113,21 +121,26 @@ func _input(event: InputEvent) -> void:
 		if _ui_is_blocking_mouse():
 			return
 
+		if ToolState.selected_tool == ToolState.TOOL_FISHING:
+			_try_start_fishing_at_cursor()
+			return
+
 		var mouse_world: Vector2 = get_global_mouse_position()
 		var cell: Vector2i = farm_map.local_to_map(farm_map.to_local(mouse_world))
 
-		match tool:
-			1:
-				farming.till(cell)
-			2:
+		match ToolState.selected_tool:
+			ToolState.TOOL_HOE:
+				if _try_start_player_hoe_swing():
+					farming.till(cell)
+			ToolState.TOOL_WATER:
 				farming.water(cell)
-			3:
+			ToolState.TOOL_PLANT:
 				var crop := _seed_to_crop(InventoryState.selected_item_id)
 				if crop != "":
 					farming.plant(cell, crop)
 				else:
 					print("[Plant] Select a seed in the hotbar (I) first.")
-			4:
+			ToolState.TOOL_HARVEST:
 				farming.harvest(cell)
 
 
@@ -197,4 +210,41 @@ func _cycle_time_speed() -> void:
 
 
 func _ui_is_blocking_mouse() -> bool:
+	if get_viewport().gui_get_hovered_control() != null:
+		return true
 	return crafting_menu != null and crafting_menu.visible
+
+
+func _try_start_player_hoe_swing() -> bool:
+	var player := get_tree().get_first_node_in_group("player")
+	if player == null:
+		return true
+	if not player.has_method("try_start_hoe_swing"):
+		return true
+	return bool(player.try_start_hoe_swing())
+
+
+func _try_start_fishing_at_cursor() -> void:
+	if _fishing_minigame == null:
+		push_warning("[Fishing] Minigame scene is missing.")
+		return
+
+	var mouse_world: Vector2 = get_global_mouse_position()
+	var cell: Vector2i = water_map.local_to_map(water_map.to_local(mouse_world))
+	if water_map.get_cell_source_id(cell) == -1:
+		print("[Fishing] Cast into water.")
+		return
+
+	_fishing_active = true
+	_fishing_minigame.start()
+
+
+func _on_fishing_finished(success: bool) -> void:
+	_fishing_active = false
+	if not success:
+		print("[Fishing] The fish got away.")
+		return
+	if InventoryState.add_item("fish", 1):
+		print("[Fishing] Caught a fish!")
+	else:
+		print("[Fishing] Inventory full.")

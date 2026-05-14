@@ -24,6 +24,7 @@ var facing_dir: Vector2 = Vector2.DOWN
 var _last_footstep_index := -1
 var _last_till_index := -1
 var _footstep_cooldown := 0.0
+var _footsteps_enabled := true
 var stamina: float = max_stamina
 var _stamina_regen_timer := 0.0
 static var _starter_inventory_granted := false
@@ -31,13 +32,6 @@ static var _starter_inventory_granted := false
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	_footstep_cooldown -= delta
-
-	if Input.is_action_just_pressed("interact"):
-		if stamina > 0.0 and stamina > 0.35:
-			is_swinging = true
-			stamina = max(0.0, stamina - 0.35)
-			_stamina_regen_timer = stamina_regen_delay
-		
 
 	is_sprinting = Input.is_action_pressed("ui_sprint") and input_dir.length() > 0.1 and stamina > 0.0
 
@@ -52,9 +46,6 @@ func _physics_process(delta: float) -> void:
 
 	if is_swinging and stamina >= 0:
 		velocity = Vector2.ZERO
-		stamina = max(0.0, stamina - 0.35)
-		if stamina <= 0:
-			is_swinging = false
 		_stamina_regen_timer = stamina_regen_delay
 		
 
@@ -138,6 +129,25 @@ func _update_animation(input_dir: Vector2) -> void:
 	if sprite.animation != anim:
 		sprite.play(anim)
 
+func try_start_hoe_swing() -> bool:
+	if is_swinging:
+		return false
+	if stamina <= 0.35:
+		return false
+	is_swinging = true
+	stamina = max(0.0, stamina - 0.35)
+	_stamina_regen_timer = stamina_regen_delay
+	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	_update_animation(input_dir)
+	return true
+
+
+func set_footsteps_enabled(enabled: bool) -> void:
+	_footsteps_enabled = enabled
+	if not _footsteps_enabled:
+		for footstep: AudioStreamPlayer2D in footsteps:
+			footstep.stop()
+
 func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
 	sprite.frame_changed.connect(_on_frame_changed)
@@ -158,6 +168,8 @@ func _ready() -> void:
 	InventoryState.add_item("fiber", 6)
 
 func _on_frame_changed() -> void:
+	if not _footsteps_enabled:
+		return
 	var walk_anims := ["walk_up", "walk_down", "walk_angle"]
 	var sprint_anims := ["sprint_up", "sprint_down", "sprint"]
 	if sprite.animation not in walk_anims and sprite.animation not in sprint_anims:

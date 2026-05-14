@@ -81,8 +81,8 @@ func _reset_portals(root: Node) -> void:
 
 
 func _apply_map_lighting(map: Node) -> void:
-	if day_night_tint == null or not day_night_tint.has_method("set_day_night_enabled"):
-		return
-
 	var is_indoor := bool(map.get_meta("is_indoor", false))
-	day_night_tint.set_day_night_enabled(not is_indoor)
+	if day_night_tint != null and day_night_tint.has_method("set_day_night_enabled"):
+		day_night_tint.set_day_night_enabled(not is_indoor)
+	if player != null and player.has_method("set_footsteps_enabled"):
+		player.set_footsteps_enabled(not is_indoor)
